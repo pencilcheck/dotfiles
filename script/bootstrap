@@ -32,6 +32,11 @@ fail () {
   exit
 }
 
+setup_git_submodules () {
+  git submodule init
+  git submodule update
+}
+
 link_files () {
   ln -s $1 $2
   success "linked $1 to $2"
@@ -113,6 +118,7 @@ install_dotfiles () {
 
 install_dotfiles
 install_refit
+setup_git_submodules
 
 #function bootstrap() {
     #cd ~
@@ -154,12 +160,6 @@ install_refit
     #ln -is .dotfiles/tmux-colors-solarized/tmuxcolors-dark.conf .tmuxcolors-dark.conf
     #ln -is .dotfiles/tmux-colors-solarized/tmuxcolors-light.conf .tmuxcolors-light.conf
     #ln -is .dotfiles/tmux-colors-solarized/tmuxcolors-256.conf .tmuxcolors-256.conf
-#}
-
-#function update_git_submodules() {
-    ## tmux-powerline
-    #git submodule init
-    #git submodule update
 #}
 
 # If we are on a mac, lets install and setup homebrew

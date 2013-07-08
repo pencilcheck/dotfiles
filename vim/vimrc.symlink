@@ -1,0 +1,466 @@
+set nocompatible
+filetype off
+
+" setting up pathogen, loading all plugins from .vim/bundle folder
+if !exists("g:loaded_pathogen")
+  call pathogen#runtime_append_all_bundles()
+  call pathogen#helptags()
+endif
+
+" it is acting weird
+filetype plugin indent on
+"filetype plugin on
+
+" setting up vundle
+set rtp+=.vim/bundle/vundle/
+call vundle#rc()
+
+" required
+Bundle 'gmarik/vundle'
+
+" Pretty annoying, blacklisted for now
+"Bundle 'tpope/vim-speeddating'
+"Bundle 'tpope/vim-commentary'
+"Bundle 'tpope/vim-abolish'
+"Bundle 'scrooloose/syntastic'
+"Bundle 'Raimondi/delimitMate'
+"Bundle 'Valloric/YouCompleteMe'
+
+Bundle 'elzr/vim-json'
+Bundle 'tpope/vim-haml'
+Bundle 'tomasr/molokai'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'slim-template/vim-slim'
+Bundle 'davidkariuki/sexy-railscasts-256-theme'
+Bundle 'endel/vim-github-colorscheme'
+Bundle 'puppetlabs/puppet-syntax-vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'kien/ctrlp.vim'
+"Bundle 'mileszs/ack.vim'
+" Faster than Ack
+Bundle 'rking/ag.vim'                   
+Bundle 'Lokaltog/powerline'
+Bundle 'majutsushi/tagbar'
+Bundle 'tpope/vim-endwise'
+
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-rails'
+Bundle 'xolox/vim-misc' 
+Bundle 'xolox/vim-easytags'
+Bundle 'tpope/vim-surround'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'xolox/vim-reload'
+Bundle 'sjl/gundo.vim'
+
+"Bundle 'vim-scripts/TeX-PDF'
+"Bundle 'tpope/vim-bundler'
+"Bundle 'tpope/vim-rake'
+"Bundle 'tpope/vim-eunuch'
+"Bundle 'tpope/vim-repeat'
+"Bundle 'tpope/vim-unimpaired'
+"Bundle 'lukaszb/vim-web-indent'
+"Bundle 'AndrewRadev/undoquit.vim'
+"Bundle 'vim-scripts/sessionman.vim'
+"Bundle 'kana/vim-textobj-user'
+"Bundle 'terryma/vim-multiple-cursors'
+"Bundle 'terryma/vim-expand-region'
+
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
+
+"auto reload vimrc once changed
+if has("autocmd")
+  autocmd! BufWritePost .vimrc source $MYVIMRC
+
+  " This fixes the color changes and things not working :D
+  autocmd! BufWritePost $MYVIMRC filetype plugin indent on
+endif
+
+" This autocommand jumps to the last known position in a file
+" just after opening it, if the '"' mark is set:"
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+"enable prawn files syntax highlight
+au BufNewFile,BufRead *.prawn set filetype=ruby
+
+" Autosave when lost focus
+"au FocusLost * :wa
+
+
+set modelines=2
+
+" tab setup
+set expandtab
+"set noexpandtab
+
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+
+set autoindent
+set smartindent
+set cindent
+set smarttab
+set showmatch "useful to show matched parenthesis
+set matchtime=3
+
+set encoding=utf-8
+set scrolloff=10
+"set scrolljump=5
+set showmode
+set showcmd
+set ruler
+set lazyredraw
+set hidden                                  " hides buffer
+set wildmenu
+set wildmode=list:longest,full
+set visualbell
+set cursorline
+set ttyfast
+set ft=sh
+set backspace=indent,eol,start
+set laststatus=2
+set number
+
+set pastetoggle=<F2>
+
+" Enable per project .vimrc
+set exrc
+set secure
+
+" For Powerline
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+
+" MacVim copy with native motion verbs
+set clipboard=unnamed
+
+" new features in Vim 7.3
+"set relativenumber
+set undodir='~/.vim/undodir'
+set undofile
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+
+" please, no tmp or swap files scattered across my folders, so messy
+" need to create the directory or those will not work
+set backupdir=~/.vimtmp,.
+set directory=~/.vimtmp,.
+
+" Or turn it off completely
+set nobackup
+set noswapfile
+
+"nnoremap / /\v
+"vnoremap / /\v
+set ignorecase
+set smartcase
+set infercase
+"set gdefault
+set nohlsearch
+set incsearch
+set showmatch
+set hlsearch
+
+" font configuration
+"set guifont=Meslo\ LG\ M\ DZ:h13
+"set guifont=Menlo\ for\ Powerline:h11
+"set guifont=Monaco\ for\ Powerline:h11
+set guifont=PragmataPro\ for\ Powerline:h14
+"set guifont=Menlo:h11
+"set guifont=MonteCarlo:h11 "11 should be optimal for this font
+"modify the cursor so it looks like its iTerm counterpart
+"set guicursor=i-n-v-c:hor10-Cursor
+"set guicursor+=a:blinkon0
+
+" show invisible characters
+set list
+set listchars=tab:▸\ ,eol:¬
+
+"set wrap
+"set linebreak
+set textwidth=80
+set formatoptions=tqrn1
+
+" For ColorColumn
+"set colorcolumn=80
+"highlight ColorColumn ctermbg=Black
+"highlight ColorColumn guibg=wheat
+
+" remap <leader> key to ,
+let mapleader=","
+
+" Key bindings
+noremap <F1> <ESC>
+
+" Disable q and Q
+"map q <Nop>
+map Q <Nop>
+
+" too lazy to type :
+nnoremap ; :
+
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" Jumps over wrapped lines 
+nnoremap j gj
+nnoremap k gk
+
+nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>s <C-w>s<C-w>l
+nnoremap <leader>v :tabe $MYVIMRC<cr>
+"nnoremap <leader>v <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
+" Vundle shortkeys
+nnoremap <leader>b :BundleInstall<cr>
+nnoremap <leader>c :BundleClean<cr>
+
+" clear out the search highlight
+nnoremap <leader><space> :noh<cr>
+
+nnoremap <Tab> %
+
+" Let you edit sudo files after opening it
+cmap w!! w !sudo tee % >/dev/null
+
+" Only highlight current line number instead of the whole line {{{
+
+hi clear CursorLine
+augroup CLClear
+  autocmd! ColorScheme * hi clear CursorLine
+augroup END
+
+hi CursorLineNR cterm=bold
+augroup CLNRSet
+  autocmd! ColorScheme * hi CursorLineNR cterm=bold
+augroup END
+
+" }}}
+" Sessionman {{{
+
+" Autosave session on vim exit, and open last saved session on vim launch with
+" no arguments
+"set viminfo='100,<50,s10,h,!
+"autocmd VimEnter * SessionOpenLast
+"let sessionman_save_on_exit = 1
+
+" }}}
+" Colorscheme {{{
+
+syntax on
+colorscheme wombat
+"colorscheme molokai
+"colorscheme zenburn
+if has("gui_running")
+  "colorscheme github
+  "colorscheme solarized
+endif
+
+" }}}
+" AutoHighlight {{{
+
+" Highlight all instances of word under cursor, when idle.
+" Useful when studying strange source code.
+" Type z/ to toggle highlighting on/off.
+nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+function! AutoHighlightToggle()
+  let @/ = ''
+  if exists('#auto_highlight')
+    au! auto_highlight
+    augroup! auto_highlight
+    setl updatetime=4000
+    echo 'Highlight current word: off'
+    return 0
+  else
+    augroup auto_highlight
+      au!
+      au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+    augroup end
+    setl updatetime=500
+    echo 'Highlight current word: ON'
+    return 1
+  endif
+endfunction
+
+" }}}
+" Non overwritng Paste {{{
+
+" http://superuser.com/questions/321547/how-do-i-replace-paste-yanked-text-in-vim-without-yanking-the-deleted-lines
+" This one has some shortcomings
+"vnoremap p "_dP
+
+" }}}
+" Powerline {{{
+
+" Powerline with symbols, better to use iterm2 for correct colors
+let g:Powerline_symbols = 'fancy'
+
+" }}}
+" GitGutter {{{
+
+" Jump between git diff hunk
+nmap <silent> ]h :<C-U>execute "GitGutterNextHunk"<CR>
+nmap <silent> [h :<C-U>execute "GitGutterPrevHunk"<CR>
+
+" }}}
+" NERDTree {{{
+nnoremap <leader>n :NERDTreeToggle<cr>
+
+" }}}
+" NERDTree tabs {{{
+
+let g:nerdtree_tabs_open_on_gui_startup = 0
+
+" }}}
+" Tagbar {{{
+
+nmap <leader>r :TagbarToggle<cr>
+let g:tagbar_ctags_bin = '/opt/boxen/homebrew/bin/ctags'
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_autoshowtag = 1
+
+" Tagbar - ruby
+let g:tagbar_type_ruby = {
+    \ 'kinds' : [
+        \ 'm:modules',
+        \ 'c:classes',
+        \ 'd:describes',
+        \ 'C:contexts',
+        \ 'f:methods',
+        \ 'F:singleton methods'
+    \ ]
+\ }
+
+" }}}
+" SwapWindow {{{
+
+function! MarkWindowSwap()
+    " marked window number
+    let g:markedWinNum = winnr()
+    let g:markedBufNum = bufnr("%")
+endfunction
+
+function! DoWindowSwap()
+    let curWinNum = winnr()
+    let curBufNum = bufnr("%")
+    " Switch focus to marked window
+    exe g:markedWinNum . "wincmd w"
+
+    " Load current buffer on marked window
+    exe 'hide buf' curBufNum
+
+    " Switch focus to current window
+    exe curWinNum . "wincmd w"
+
+    " Load marked buffer on current window
+    exe 'hide buf' g:markedBufNum
+
+    " Switch focus back to marked window (not what I want)
+    "exe g:markedWinNum . "wincmd w"
+endfunction
+
+" window cursor moving
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" resizing window
+nnoremap < <C-w><
+nnoremap > <C-w>>
+nnoremap <C-_> <C-w>- " Ctrl and -
+nnoremap = <C-w>+ " Ctrl and +
+
+" window swapping
+nnoremap H :call MarkWindowSwap()<CR> <C-w>h :call DoWindowSwap()<CR>
+nnoremap J :call MarkWindowSwap()<CR> <C-w>j :call DoWindowSwap()<CR>
+nnoremap K :call MarkWindowSwap()<CR> <C-w>k :call DoWindowSwap()<CR>
+nnoremap L :call MarkWindowSwap()<CR> <C-w>l :call DoWindowSwap()<CR>
+
+" window moving
+nnoremap <C-w><C-h> <C-w>H
+nnoremap <C-w><C-j> <C-w>J
+nnoremap <C-w><C-k> <C-w>K
+nnoremap <C-w><C-l> <C-w>L
+
+" }}}
+" Gundo {{{
+
+nnoremap <leader>u :GundoToggle<CR>
+
+" }}}
+" Customize matching brackets/parenthesis {{{
+
+"hi MatchParen cterm=underline ctermfg=111 ctermbg=235 gui=underline guifg=#80a0ff guibg=bg
+hi MatchParen term=underline cterm=underline ctermfg=147 ctermbg=235 gui=underline guifg=#80a0ff guibg=bg
+
+set wildignore+=*.o,*.obj,.git,.svn,*.pyc "ignoring filetypes
+
+" }}}
+" CtrlP {{{
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_working_path_mode = 'ra'
+
+" Use ag (The silver searcher) instead for a speed boost
+let g:ctrlp_user_command = 'ag --nogroup --nobreak --noheading --nocolor -g "" %s '
+
+" Improve performance
+"let g:ctrlp_max_depth = 10
+" Make CtrlP use ag command. Way faster and no useless filters
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+" }}}
+" file encoding {{{
+"
+set fileencodings=utf-8,big5,euc-jp,euc-kr,gbk,utf-bom,iso8859-1,latin1
+
+" }}}
+" debug {{{
+"
+nmap  <F9>  :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" }}}
+" vim-easytags {{{
+
+nnoremap <leader>t :UpdateTags<CR>
+" it is too slow to load
+"let g:easytags_always_enabled = 1
+let g:easytags_file = '~/.vim/tags/tags'
+let g:easytags_by_filetype = '~/.vim/tags'
+":set tags = ./tags;
+"let g:easytags_dynamic_files = 1
+let g:easytags_resolve_links = 1
+let g:easytags_autorecurse = 1
+let g:easytags_on_cursorhold = 0
+"let g:easytags_auto_update = 0
+"let g:easytags_updatetime_min = 10000
+
+" Tag jumping (it shows all matches)
+nnoremap <C-\> g]
+
+" }}}
+" ack.vim {{{
+
+"let g:ackprg = 'ag --nogroup --nocolor --column'
+"nnoremap <leader>vv :Ack <C-r><C-w><CR>
+
+" }}}
+" TeX-PDF {{{
+"
+let g:tex_pdf_map_func_keys = 0
+noremap <silent> <leader>y <Esc>:BuildAndViewTexPdf<CR>
+inoremap <silent> <leader>y <Esc>:BuildAndViewTexPdf<CR>
+
+" }}}

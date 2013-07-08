@@ -1,0 +1,11 @@
+startup_message off
+term screen-256color
+encoding UTF-8
+
+# fix residual editor text
+altscreen on
+
+# detach on hangup
+autodetach on
+
+hardstatus alwayslastline "%{=}%-w%{+b w}%n %t%{-b w}%+w %=%c"

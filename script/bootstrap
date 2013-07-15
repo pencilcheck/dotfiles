@@ -42,11 +42,19 @@ link_files () {
   success "linked $1 to $2"
 }
 
+sudo_link_files () {
+  sudo ln -s $1 $2
+  success "linked $1 to $2"
+}
+
 install_refit () {
   source="$DOTFILES_ROOT/refit/efi"
   dest="/efi"
-  link_files $source $dest
+  sudo rm -rf $dest
+  success "removed $dest"
+  sudo_link_files $source $dest
   sudo sh /efi/refit/enable.sh
+  success "successfully bless this computa!"
 }
 
 install_dotfiles () {

@@ -1,1 +1,1 @@
-export PATH="$ZSH/bin:$PATH"
+export PATH="$DOTFILES/bin:$PATH"

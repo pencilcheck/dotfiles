@@ -25,6 +25,7 @@ Bundle 'gmarik/vundle'
 "Bundle 'scrooloose/syntastic'
 "Bundle 'Raimondi/delimitMate'
 "Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Lokaltog/powerline'
 
 Bundle 'elzr/vim-json'
 Bundle 'tpope/vim-haml'
@@ -38,10 +39,12 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
+Bundle 'Shougo/neocomplcache.vim'
+" Replacement for powerline
+Bundle 'bling/vim-airline' 
 "Bundle 'mileszs/ack.vim'
 " Faster than Ack
 Bundle 'rking/ag.vim'                   
-Bundle 'Lokaltog/powerline'
 Bundle 'majutsushi/tagbar'
 Bundle 'tpope/vim-endwise'
 
@@ -78,12 +81,12 @@ Bundle 'sjl/gundo.vim'
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
 
-"auto reload vimrc once changed
+"auto reload vimrc once changed (not working, fix it)
 if has("autocmd")
-  autocmd! BufWritePost .vimrc source $MYVIMRC
+  "autocmd! BufWritePost .vimrc source $MYVIMRC
 
   " This fixes the color changes and things not working :D
-  autocmd! BufWritePost $MYVIMRC filetype plugin indent on
+  "autocmd! BufWritePost $MYVIMRC filetype plugin indent on
 endif
 
 " This autocommand jumps to the last known position in a file
@@ -458,9 +461,28 @@ nnoremap <C-\> g]
 
 " }}}
 " TeX-PDF {{{
-"
+
 let g:tex_pdf_map_func_keys = 0
 noremap <silent> <leader>y <Esc>:BuildAndViewTexPdf<CR>
 inoremap <silent> <leader>y <Esc>:BuildAndViewTexPdf<CR>
+
+" }}}
+" Neocomplcache {{{
+
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+" Enable heavy features.
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" }}}
+" Airline {{{
+
+let g:airline_powerline_fonts = 1
 
 " }}}

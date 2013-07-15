@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # dot
 #
@@ -6,7 +6,7 @@
 # to make sure you're on the latest and greatest.
 
 # Set OS X defaults
-$ZSH/osx/set-defaults.sh
+sudo $DOTFILES/osx/set-defaults.sh
 
 # Upgrade homebrew
 brew update

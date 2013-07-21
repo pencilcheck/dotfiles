@@ -1,0 +1,102 @@
+# screen prefix key
+unbind C-b
+set -g prefix C-a
+bind C-a send-prefix # if C-a again, send it through
+
+# reload
+bind r source-file ~/.tmux.conf
+
+# change foreground-background for the current window
+#setw -g window-status-current-attr reverse
+setw -g monitor-activity on
+
+setw -g mode-keys vi
+
+# sane mouse scrolling within pane
+#setw -g mode-mouse on
+
+# mouse reporting in iterm2
+#set -g mouse-utf8 on
+
+# set active pane border to blue
+set-option -g pane-active-border-fg blue
+
+# vi bindings for copy mode
+unbind [
+bind Escape copy-mode
+# vi bindings for selection
+bind-key -t vi-copy 'v' begin-selection
+bind-key -t vi-copy 'y' copy-selection
+
+unbind p
+bind p paste-buffer
+
+# copying/pasting to Mac clipboard
+# http://unix.stackexchange.com/a/32451
+set-option -g default-command "reattach-to-user-namespace -l zsh" # or bash...
+bind y run-shell "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+#bind p run "pbpaste | tmux load-buffer - && tmux paste-buffer"
+
+# list all paste buffers (default key is '#')
+bind-key b list-buffers
+
+# choose buffer to paste interactively (default key was '=')
+bind-key v choose-buffer
+
+# Theme {{{
+# solarized theme
+#source ~/.tmuxcolors-dark.conf
+#source ~/.tmuxcolors-light.conf
+#source ~/.tmuxcolors-256.conf
+# }}}
+
+# Titles {{{
+set-option -g set-titles on
+set-option -g set-titles-string '#W(#P) - #T'
+set-window-option -g automatic-rename on
+# }}}
+
+# Set status bar {{{
+set -g status-bg blue
+set -g status-fg white
+set -g status-left '#[fg=green]#'
+set-window-option -g window-status-current-bg red
+
+# Set tmux-powerline status bar
+#set-option -g status on
+#set-option -g status-interval 2
+#set-option -g status-utf8 on
+#set-option -g status-justify "centre"
+#set-option -g status-left-length 60
+#set-option -g status-right-length 90
+#set-option -g status-left "#(~/.dotfiles/tmux-powerline/powerline.sh left)"
+#set-option -g status-right "#(~/.dotfiles/tmux-powerline/powerline.sh right)"
+# }}}
+
+# highlight status bar on activity
+set -g visual-activity on
+
+# enable color in tmux
+# http://superuser.com/questions/399296/256-color-support-for-vim-background-in-tmux
+set -g default-terminal "screen-256color"
+
+# hsplit
+unbind %
+bind | split-window -h
+
+# vsplit
+unbind '"'
+bind _ split-window -v
+
+# use the vim motion keys to move between panes
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# resize pane
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+

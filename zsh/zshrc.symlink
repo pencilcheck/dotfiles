@@ -99,5 +99,8 @@ export RAILS_ENV=development
 # curl-ca-bundle for OpenSSL
 #export SSL_CERT_FILE=$(/opt/boxen/homebrew/bin/brew --prefix)/share/ca-bundle.crt
 
+# EXTRA: This binds Ctrl-O to ranger-cd:
+bindkey -s '^o' 'ranger-cd^m'
+
 # Run Boxen
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh

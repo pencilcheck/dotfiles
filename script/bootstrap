@@ -55,6 +55,7 @@ install_dotfiles () {
     esac
   done
 
+  # People on #bash warn me that files with white spaces will fail this expr
   for source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink`
   do
     dest="$HOME/.`basename \"${source%.*}\"`"
@@ -115,7 +116,8 @@ install_dotfiles () {
   done
 }
 
-install_dotfiles
+# to pass in script arguments into functions as well, e.g. $0, $1
+install_dotfiles "$@"
 setup_git_submodules
 
 echo ''

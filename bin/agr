@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#
+# agr - bulk find and replace using the silver searcher
+# Work In Progress
+
+ag $1 --nogroup | awk '{print substr($1,1,index($1,":")-1);}' | xargs -I {} sed -i -e 's/$1/$2/g' {}

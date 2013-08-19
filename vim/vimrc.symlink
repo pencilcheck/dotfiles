@@ -44,7 +44,7 @@ Bundle 'Shougo/neocomplcache.vim'
 Bundle 'bling/vim-airline' 
 "Bundle 'mileszs/ack.vim'
 " Faster than Ack
-Bundle 'rking/ag.vim'                   
+Bundle 'rking/ag.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'tpope/vim-endwise'
 
@@ -96,9 +96,104 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 "enable prawn files syntax highlight
 au BufNewFile,BufRead *.prawn set filetype=ruby
 
+"enable skim files syntax highlight
+au BufNewFile,BufRead *.skim set filetype=slim
+
 " Autosave when lost focus
 "au FocusLost * :wa
 
+
+" Syntax Info {{{
+function! GetSynInfo()
+    let stack = synstack(line("."), col("."))
+
+    let info = ""
+
+    for synid in reverse(stack)
+        if strlen(info)
+            let info .= " < "
+        endif
+
+        let syn = GetSynDict(synid)
+        let info .= GetSynInfoString(syn)
+    endfor
+
+    return info
+endfunction
+
+function! GetSynInfoString(syndict)
+    if a:syndict["syn"] != a:syndict["hi"]
+        let add_hi = a:syndict["hi"]." "
+    else
+        let add_hi = ""
+    endif
+
+    return a:syndict["syn"]." (".add_hi."fg=".a:syndict["fg"]." bg=".a:syndict["bg"].")"
+endfunction
+
+function! GetSynString(syndict)
+    return a:syndict["syn"]
+endfunction
+
+function! GetHereSynId(trans)
+    return synID(line("."), col("."), a:trans) 
+endfunction
+
+function! GetSynDict(synid)
+    let hiid = synIDtrans(a:synid)
+
+    let syn = synIDattr(a:synid, "name")
+    let hi = synIDattr(hiid, "name")
+    let fg = synIDattr(hiid, "fg")
+    let bg = synIDattr(hiid, "bg")
+
+    return {"syn":syn, "hi":hi, "fg":fg, "bg":bg}
+endfunction
+
+nnoremap g<C-h> :echo GetSynInfo()<CR>
+" }}}
+
+
+" Ruby Folding {{{
+"function! GetSynIDattr()
+  "let stack = synstack(line("."), (match(getline(line(".")), '^\s*\zs'))+1)
+
+  "for synid in stack
+    "if GetSynString(GetSynDict(synid)) ==? "rubyMethodBlock" || GetSynString(GetSynDict(synid)) ==? "rubyDefine" 
+      "return "a match"
+    "endif
+  "endfor
+
+  "return "no match"
+"endfunction
+
+"nnoremap g<C-g> :echo GetSynIDattr()<CR>
+
+" This fold expr function will fold only ruby defs and documentation
+" =begin=end blocks
+function! RubyMethodFold(line)
+  let stack = synstack(a:line, (match(getline(a:line), '^\s*\zs'))+1)
+
+  for synid in stack
+    if GetSynString(GetSynDict(synid)) ==? "rubyMethodBlock" || GetSynString(GetSynDict(synid)) ==? "rubyDefine" || GetSynString(GetSynDict(synid)) ==? "rubyDocumentation"
+      return 1
+    endif
+  endfor
+
+  return 0
+endfunction
+
+set foldexpr=RubyMethodFold(v:lnum)
+set foldmethod=expr
+
+"set foldmethod=syntax
+
+"" Adjust the highlighting
+highlight Folded guibg=grey guifg=blue
+
+"" Map folding to Spacebar
+nnoremap <Space> za
+" }}}
 
 set modelines=2
 
@@ -191,11 +286,11 @@ set listchars=tab:▸\ ,eol:¬
 
 "set wrap
 "set linebreak
-set textwidth=80
+"set textwidth=80
 set formatoptions=tqrn1
 
 " For ColorColumn
-"set colorcolumn=80
+set colorcolumn=80
 "highlight ColorColumn ctermbg=Black
 "highlight ColorColumn guibg=wheat
 
@@ -412,6 +507,8 @@ set wildignore+=*.o,*.obj,.git,.svn,*.pyc "ignoring filetypes
 
 " }}}
 " CtrlP {{{
+
+let g:ctrlp_follow_symlinks = 1
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_working_path_mode = 'ra'

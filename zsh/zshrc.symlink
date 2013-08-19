@@ -89,16 +89,6 @@ unset config_files
 # for texlive
 export PATH=/usr/local/texlive/2010/bin/x86_64-darwin:$PATH
 
-# for rails 3 mysql2
-#export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
-
-# for rails development
-export RACK_ENV=development
-export RAILS_ENV=development
-
-# curl-ca-bundle for OpenSSL
-#export SSL_CERT_FILE=$(/opt/boxen/homebrew/bin/brew --prefix)/share/ca-bundle.crt
-
 # EXTRA: This binds Ctrl-O to ranger-cd:
 bindkey -s '^o' 'ranger-cd^m'
 

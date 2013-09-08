@@ -89,6 +89,9 @@ unset config_files
 # for texlive
 export PATH=/usr/local/texlive/2010/bin/x86_64-darwin:$PATH
 
+# for android-sdk
+export ANDROID_HOME=/opt/boxen/homebrew/opt/android-sdk
+
 # EXTRA: This binds Ctrl-O to ranger-cd:
 bindkey -s '^o' 'ranger-cd^m'
 

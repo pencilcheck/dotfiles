@@ -43,7 +43,7 @@ Bundle 'Shougo/neocomplcache.vim'
 " Replacement for powerline
 Bundle 'bling/vim-airline' 
 "Bundle 'mileszs/ack.vim'
-" Faster than Ack
+" Ag is faster than Ack
 Bundle 'rking/ag.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'tpope/vim-endwise'
@@ -194,6 +194,9 @@ highlight Folded guibg=grey guifg=blue
 "" Map folding to Spacebar
 nnoremap <Space> za
 " }}}
+
+set wildignore+=*.o,*.obj,.git,.svn,*.pyc,*/tmp/*,*.so,*.swp,*.zip
+set fileencodings=utf-8,big5,euc-jp,euc-kr,gbk,utf-bom,iso8859-1,latin1
 
 set modelines=2
 
@@ -356,8 +359,8 @@ augroup END
 " Colorscheme {{{
 
 syntax on
-colorscheme wombat
-"colorscheme molokai
+"colorscheme wombat
+colorscheme molokai
 "colorscheme zenburn
 if has("gui_running")
   "colorscheme github
@@ -503,31 +506,36 @@ nnoremap <leader>u :GundoToggle<CR>
 "hi MatchParen cterm=underline ctermfg=111 ctermbg=235 gui=underline guifg=#80a0ff guibg=bg
 hi MatchParen term=underline cterm=underline ctermfg=147 ctermbg=235 gui=underline guifg=#80a0ff guibg=bg
 
-set wildignore+=*.o,*.obj,.git,.svn,*.pyc "ignoring filetypes
-
 " }}}
 " CtrlP {{{
-
-let g:ctrlp_follow_symlinks = 1
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_working_path_mode = 'ra'
-
-" Use ag (The silver searcher) instead for a speed boost
-let g:ctrlp_user_command = 'ag --nogroup --nobreak --noheading --nocolor -g "" %s '
 
 " Improve performance
 "let g:ctrlp_max_depth = 10
 " Make CtrlP use ag command. Way faster and no useless filters
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-" }}}
-" file encoding {{{
-"
-set fileencodings=utf-8,big5,euc-jp,euc-kr,gbk,utf-bom,iso8859-1,latin1
+" does not apply when user_command is used
+"let g:ctrlp_follow_symlinks = 1
+
+let g:ctrlp_working_path_mode = 'ra'
+
+" Use ag (The silver searcher) instead for a speed boost
+let g:ctrlp_user_command = 'ag --follow --nogroup --nobreak --noheading --nocolor -g "" %s '
 
 " }}}
-" debug {{{
+" ag.vim {{{
+
+" Do a global search for the keyword under the cursor from current directory
+nnoremap <leader>zz :Ag <C-r><C-w><CR>
+
+" }}}
+" ack.vim {{{
+
+"let g:ackprg = 'ag --nogroup --nocolor --column'
+"nnoremap <leader>vv :Ack <C-r><C-w><CR>
+
+" }}}
+" Debug {{{
 "
 nmap  <F9>  :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
@@ -549,12 +557,6 @@ let g:easytags_on_cursorhold = 0
 
 " Tag jumping (it shows all matches)
 nnoremap <C-\> g]
-
-" }}}
-" ack.vim {{{
-
-"let g:ackprg = 'ag --nogroup --nocolor --column'
-"nnoremap <leader>vv :Ack <C-r><C-w><CR>
 
 " }}}
 " TeX-PDF {{{

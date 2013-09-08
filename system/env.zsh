@@ -6,3 +6,6 @@ fi
 
 # Prevent python from generating pyc or pyo files
 export PYTHONDONTWRITEBYTECODE=true
+
+# Default Bundler parallel processes
+export BUNDLE_JOBS=8

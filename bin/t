@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Creates tmux session named the same as current directory
+
+tmux new -s `basename $PWD`

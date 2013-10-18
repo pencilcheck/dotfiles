@@ -13,7 +13,7 @@ success () {
 install_refit () {
   source="$DOTFILES_ROOT/refit/efi"
   dest="/efi"
-  rm -rf $dest
+  sudo rm -rf $dest
   success "removed $dest"
   link_files $source $dest
   sh /efi/refit/enable.sh

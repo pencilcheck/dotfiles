@@ -8,7 +8,7 @@
 # https://github.com/fromonesrc/dotfiles/blob/master/osx/set-defaults.sh
 #
 #
-# Run ./set-defaults.sh to set up the defatuls
+# Run ./set-defaults.sh to set up the defaults
 
 # Ask for the administrator password upfront
 sudo -v

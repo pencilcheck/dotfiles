@@ -345,6 +345,12 @@ defaults write com.apple.dashboard devmode -bool true
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 defaults write com.apple.DiskUtility advanced-image-options -bool true
 
+# Open and save files as UTF-8 in TextEdit
+defaults write com.apple.TextEdit PlainTextEncoding -int 4
+defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
+
+
+
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################

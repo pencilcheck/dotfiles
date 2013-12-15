@@ -33,7 +33,8 @@ sudo nvram SystemAudioVolume=" "
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 
 # Menu bar: show remaining battery time (on pre-10.8); hide percentage
-defaults write com.apple.menuextra.battery ShowPercent -string "NO"
+# post-10.9, time is no longer displaying, only percentage remains :(
+defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 defaults write com.apple.menuextra.battery ShowTime -string "YES"
 
 # Expand save panel by default
@@ -187,11 +188,13 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 /usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom false" ~/Library/Preferences/com.apple.finder.plist
 
 # Enable snap-to-grid for icons on the desktop and in other icon views
+/usr/libexec/PlistBuddy -c "Set :FK_DefaultIconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
 # Increase grid spacing for icons on the desktop and in other icon views
+/usr/libexec/PlistBuddy -c "Set :FK_DefaultIconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
@@ -200,6 +203,7 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 40" ~/Library/Preferences/com.apple.finder.plist
 
 # Increase the size of icons other icon views
+/usr/libexec/PlistBuddy -c "Set :FK_DefaultIconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 

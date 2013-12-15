@@ -27,6 +27,8 @@ Bundle 'gmarik/vundle'
 "Bundle 'Valloric/YouCompleteMe'
 "Bundle 'Lokaltog/powerline'
 
+Bundle 'junegunn/seoul256.vim'
+Bundle 'lukaszb/vim-web-indent'
 Bundle 'elzr/vim-json'
 Bundle 'tpope/vim-haml'
 Bundle 'tomasr/molokai'

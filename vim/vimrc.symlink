@@ -362,7 +362,8 @@ augroup END
 
 syntax on
 "colorscheme wombat
-colorscheme molokai
+"colorscheme molokai
+colorscheme seoul256
 "colorscheme zenburn
 if has("gui_running")
   "colorscheme github

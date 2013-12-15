@@ -321,7 +321,7 @@ defaults write com.apple.terminal StringEncodings -array 4
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
-# Reset default profile custom colorschemes
+# Reset default profile custom colorschemes (actually that won't work since iterm is still running and will be overwritten by binary)
 /usr/libexec/PlistBuddy -c "Delete 'Custom Color Presets'" ~/Library/Preferences/com.googlecode.iterm2.plist
 
 # Install pretty iTerm colors

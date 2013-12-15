@@ -33,7 +33,7 @@ sudo nvram SystemAudioVolume=" "
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 
 # Menu bar: show remaining battery time (on pre-10.8); hide percentage
-# post-10.9, time is no longer displaying, only percentage remains :(
+# post-10.8, time is no longer displaying, only percentage remains :(
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 defaults write com.apple.menuextra.battery ShowTime -string "YES"
 
@@ -369,6 +369,13 @@ defaults write com.apple.appstore ShowDebugMenu -bool true
 
 # Disable default Apple's FTDI driver on Mavericks
 [ -f /System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns/AppleUSBFTDI.kext ] && cd /System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns/ && sudo mv AppleUSBFTDI.kext AppleUSBFTDI.disabled && sudo touch /System/Library/Extensions
+
+###############################################################################
+# Restart daemon to flush cache (post-10.8)                                   #
+###############################################################################
+
+# Kill the process that belongs to the user so cache for user plist will be flushed
+killall -u $USER cfprefsd
 
 ###############################################################################
 # Kill affected applications                                                  #

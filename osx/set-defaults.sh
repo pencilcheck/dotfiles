@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # Sets OS X defaults that I like
 #
 # The original idea (and a couple settings) were grabbed from:

@@ -301,11 +301,28 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
 
 ###############################################################################
-# Terminal                                                                    #
+# Terminal & iTerm2                                                           #
 ###############################################################################
 
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
+
+# Don’t display the annoying prompt when quitting iTerm
+defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+
+# Install pretty iTerm colors
+open "${DOTFILES}/files/Desert.itermcolors"
+open "${DOTFILES}/files/Espresso Libre.itermcolors"
+open "${DOTFILES}/files/Homebrew.itermcolors"
+open "${DOTFILES}/files/Mathias.itermcolors"
+open "${DOTFILES}/files/OS X Terminal.itermcolors"
+open "${DOTFILES}/files/Paraíso Dark.itermcolors"
+open "${DOTFILES}/files/Solarized Dark.itermcolors"
+open "${DOTFILES}/files/Spacedust.itermcolors"
+open "${DOTFILES}/files/Square.itermcolors"
+open "${DOTFILES}/files/Wez.itermcolors"
+open "${DOTFILES}/files/Wombat.itermcolors"
+open "${DOTFILES}/files/Zenburn.itermcolors"
 
 
 ###############################################################################

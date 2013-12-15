@@ -147,7 +147,7 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 defaults write NSGlobalDomain com.apple.springing.enabled -bool true
 
 # Reduce the spring loading delay for directories
-defaults write NSGlobalDomain com.apple.springing.delay -float 0.2
+defaults write NSGlobalDomain com.apple.springing.delay -float 0.5
 
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true

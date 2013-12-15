@@ -360,6 +360,13 @@ defaults write com.apple.appstore WebKitDeveloperExtras -bool true
 defaults write com.apple.appstore ShowDebugMenu -bool true
 
 ###############################################################################
+# Arduino                                                                     #
+###############################################################################
+
+# Disable default Apple's FTDI driver on Mavericks
+[ -f /System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns/AppleUSBFTDI.kext ] && cd /System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns/ && sudo mv AppleUSBFTDI.kext AppleUSBFTDI.disabled && sudo touch /System/Library/Extensions
+
+###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 

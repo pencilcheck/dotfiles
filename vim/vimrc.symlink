@@ -515,15 +515,13 @@ hi MatchParen term=underline cterm=underline ctermfg=147 ctermbg=235 gui=underli
 " Improve performance
 "let g:ctrlp_max_depth = 10
 " Make CtrlP use ag command. Way faster and no useless filters
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" Use ag (The silver searcher) instead for a speed boost
+let g:ctrlp_user_command = 'ag --follow --nogroup --nobreak --noheading --nocolor -a -g "" %s '
 
 " does not apply when user_command is used
-"let g:ctrlp_follow_symlinks = 1
+let g:ctrlp_follow_symlinks = 1
 
 let g:ctrlp_working_path_mode = 'ra'
-
-" Use ag (The silver searcher) instead for a speed boost
-let g:ctrlp_user_command = 'ag --follow --nogroup --nobreak --noheading --nocolor -g "" %s '
 
 " }}}
 " ag.vim {{{

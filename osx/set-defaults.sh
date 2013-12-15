@@ -171,6 +171,9 @@ defaults write com.apple.finder WarnOnEmptyTrash -bool false
 # Use AirDrop over every interface.
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 
+# Enable the MacBook Air SuperDrive on any Mac
+sudo nvram boot-args="mbasd=1"
+
 # Show the ~/Library folder.
 chflags nohidden ~/Library
 

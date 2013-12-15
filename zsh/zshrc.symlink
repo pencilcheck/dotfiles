@@ -39,7 +39,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git vi-mode vundle)
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
@@ -49,7 +49,7 @@ source $HOME/.oh-my-zsh/oh-my-zsh.sh
 export DOTFILES=$HOME/.dotfiles
 
 # your project folder that we can `c [tab]` to
-export PROJECTS=~/Code
+export PROJECTS=~/Projects
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -91,6 +91,9 @@ export PATH=/usr/local/texlive/2010/bin/x86_64-darwin:$PATH
 
 # for android-sdk
 export ANDROID_HOME=/opt/boxen/homebrew/opt/android-sdk
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
 
 # EXTRA: This binds Ctrl-O to ranger-cd:
 bindkey -s '^o' 'ranger-cd^m'

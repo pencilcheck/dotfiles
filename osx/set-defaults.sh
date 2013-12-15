@@ -26,6 +26,9 @@ sudo scutil --set HostName "Eve"
 sudo scutil --set LocalHostName "Eve"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "Eve"
 
+# Disable the sound effects on boot
+sudo nvram SystemAudioVolume=" "
+
 # Menu bar: disable transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 

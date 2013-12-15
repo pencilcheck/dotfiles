@@ -40,6 +40,10 @@ setopt complete_aliases
 #* …etc.
 bindkey -v
 
+# by default there is a 0.4 sec delay after hitting esc key
+# let's change it to 0.1 sec
+export KEYTIMEOUT=1
+
 #You can also map your alternate escape key just as you do in vim (shown for zsh):
 #bindkey -M viins 'escape' vi-cmd-mode
 

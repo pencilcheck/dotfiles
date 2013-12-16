@@ -8,5 +8,9 @@
 # Set OS X defaults
 $DOTFILES/osx/set-defaults.sh
 
+# Clean up .DS_Store
+asepsisctl migratein
+asepsisctl clean
+
 # Upgrade homebrew
 brew update

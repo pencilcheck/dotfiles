@@ -385,6 +385,7 @@ defaults write com.apple.appstore ShowDebugMenu -bool true
 ###############################################################################
 
 # Kill the process that belongs to the user so cache for user plist will be flushed
+# http://hints.macworld.com/article.php?story=20130908042828630
 killall -u $USER cfprefsd
 
 ###############################################################################

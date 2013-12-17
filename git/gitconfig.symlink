@@ -1,0 +1,21 @@
+[user]
+  email = pennsu@gmail.com
+  name = Penn Su
+
+[github]
+  user = pencilcheck
+
+[core]
+  excludesfile = ~/.gitignore
+
+[hub]
+  protocol = https
+
+[push]
+  default = simple
+
+[diff]
+  tool = opendiff
+
+[merge]
+  tool = opendiff

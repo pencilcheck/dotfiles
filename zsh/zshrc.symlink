@@ -90,7 +90,7 @@ unset config_files
 export PATH=/usr/local/texlive/2010/bin/x86_64-darwin:$PATH
 
 # for android-sdk
-export ANDROID_HOME=`brew --prefix`/opt/android-sdk
+export ANDROID_HOME=/opt/boxen/homebrew/opt/android-sdk
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

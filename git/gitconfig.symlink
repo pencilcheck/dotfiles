@@ -8,6 +8,9 @@
 [core]
   excludesfile = ~/.gitignore
 
+[color]
+  ui = auto
+
 [hub]
   protocol = https
 

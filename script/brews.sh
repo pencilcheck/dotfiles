@@ -28,7 +28,6 @@ vim
 hub
 dnsmasq
 nginx
-zsh
 imagemagick
 ack
 findutils
@@ -71,6 +70,13 @@ fail () {
   exit
 }
 
+tap() {
+  brew tap phinze/homebrew-cask
+  brew tap caskroom/versions
+  brew tap homebrew/dupes
+  brew tap homebrew/versions
+}
+
 has_brew() {
   path="$(brew --prefix)/Cellar/$1"
   [ -f $path ] || [ -d $path ]
@@ -92,5 +98,16 @@ install_recipes() {
   done
 }
 
+install_zsh() {
+  info 'setup zsh'
+  brew install zsh
+  # Setup homebrew zsh
+  sudo sh -c 'echo "/usr/local/bin/zsh" >> /etc/shells'
+  chsh -s /usr/local/bin/zsh
+}
+
+
 check
+tap
+install_zsh
 install_recipes

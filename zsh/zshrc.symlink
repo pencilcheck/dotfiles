@@ -45,6 +45,9 @@ source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
 # Customize to your needs...
 
+# /usr/local/bin
+export PATH=/usr/local/bin:$PATH
+
 # dotfiles path
 export DOTFILES=$HOME/.dotfiles
 
@@ -60,7 +63,7 @@ fi
 
 # all of our zsh files
 typeset -U config_files
-config_files=($DOTFILES/**/*.zsh)
+config_files=($DOTFILES/*/*.zsh) # only one level deep is all we care about
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
@@ -88,6 +91,3 @@ unset config_files
 
 # EXTRA: This binds Ctrl-O to ranger-cd:
 bindkey -s '^o' 'ranger-cd^m'
-
-# Run Boxen
-#[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh

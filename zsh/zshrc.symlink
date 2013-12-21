@@ -86,17 +86,8 @@ done
 
 unset config_files
 
-# for texlive
-export PATH=/usr/local/texlive/2010/bin/x86_64-darwin:$PATH
-
-# for android-sdk
-export ANDROID_HOME=/opt/boxen/homebrew/opt/android-sdk
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
 # EXTRA: This binds Ctrl-O to ranger-cd:
 bindkey -s '^o' 'ranger-cd^m'
 
 # Run Boxen
-[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+#[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh

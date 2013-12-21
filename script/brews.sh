@@ -7,18 +7,24 @@ set -x
 # Author: Penn Su (pennsu@gmail.com)
 
 RECIPES="brew-cask
+sqlite
 the_silver_searcher
 tmux
 mongodb
 postgresql
 git
 ctags-exuberant
+cscope
+android-sdk
+autoconf
+automake
 ranger
 reattach-to-user-namespace
 rbenv
 ruby-build
 python
 macvim
+vim
 hub
 dnsmasq
 nginx

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-set -u
-set -x
+#set -u
+#set -x
 
 # This script auto installs the list of brews that I use automatically on the local machine
 # Author: Penn Su (pennsu@gmail.com)

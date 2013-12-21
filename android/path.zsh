@@ -1,2 +1,2 @@
 # for android-sdk
-export ANDROID_HOME=/opt/boxen/homebrew/opt/android-sdk
+export ANDROID_HOME=/usr/local/opt/android-sdk

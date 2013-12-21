@@ -12,7 +12,7 @@ filetype plugin indent on
 "filetype plugin on
 
 " setting up vundle
-set rtp+=.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " required
@@ -429,7 +429,6 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 " Tagbar {{{
 
 nmap <leader>r :TagbarToggle<cr>
-let g:tagbar_ctags_bin = '/opt/boxen/homebrew/bin/ctags'
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_autoshowtag = 1

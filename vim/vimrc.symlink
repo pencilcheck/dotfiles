@@ -399,9 +399,15 @@ endfunction
 " }}}
 " Non overwritng Paste {{{
 
-" http://superuser.com/questions/321547/how-do-i-replace-paste-yanked-text-in-vim-without-yanking-the-deleted-lines
-" This one has some shortcomings
-"vnoremap p "_dP
+" map paste, yank and delete to named register so the content
+" will not be overwritten
+" downside is the OS intergration is gone with this config
+nnoremap d "xd
+vnoremap d "xd
+nnoremap y "xy
+vnoremap y "xy
+nnoremap p "xp
+vnoremap p "xp
 
 " }}}
 " Powerline {{{

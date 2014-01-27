@@ -36,6 +36,66 @@ tree
 wget
 "
 
+CASKS="teamviewer
+android-studio
+adium
+mactex
+sourcetree
+dropbox
+google-drive
+google-hangouts
+google-chrome-dev
+caffeine
+f-lux
+spectable
+monolingual
+limechat
+multibit
+mumble
+vlc
+vox
+vagrant
+appzapper
+arduino
+pckeyboardhack
+xquartz
+xld
+virtualbox
+asepsis
+skype
+sparrow
+firefox
+handbrake
+latexit
+libreoffice
+mongohub
+pgadmin3
+skim
+emacs
+subler
+sublime-text
+textmate
+teamspeak-client
+transmission
+unity3d
+coconutbattery
+cyberduck
+electric-sheep
+ichm
+jdownloader
+retinizer
+sabnzbd
+simple-comic
+bootxchanger
+osxfuse
+sshfs
+gfxcardstatus
+gimp
+google-app-engine-launcher
+cord
+boxer
+"
+
 command_exists() {
   hash $1 2>/dev/null;
 }
@@ -98,6 +158,27 @@ install_recipes() {
   done
 }
 
+has_cask() {
+  path="/opt/homebrew-cask/Caskroom/$1"
+  [ -f $path ] || [ -d $path ]
+}
+
+install_casks() {
+  info 'installing casks'
+
+  for cask in $CASKS
+  do
+    if ! has_cask $cask; then
+      info "installing ${cask}"
+      if brew cask install $cask; then
+        success 'installed'
+      else
+        fail ''
+      fi
+    fi
+  done
+}
+
 install_zsh() {
   info 'setup zsh'
   brew install zsh
@@ -111,3 +192,4 @@ check
 tap
 install_zsh
 install_recipes
+install_casks

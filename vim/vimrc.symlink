@@ -25,8 +25,10 @@ Bundle 'gmarik/vundle'
 "Bundle 'scrooloose/syntastic'
 "Bundle 'Raimondi/delimitMate'
 "Bundle 'Lokaltog/powerline'
+"Bundle 'Valloric/YouCompleteMe'
 
-Bundle 'Valloric/YouCompleteMe'
+Bundle 'yssl/QFEnter'
+Bundle "xolox/vim-session"
 Bundle 'junegunn/seoul256.vim'
 Bundle 'lukaszb/vim-web-indent'
 Bundle 'elzr/vim-json'
@@ -322,6 +324,7 @@ nnoremap k gk
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s<C-w>l
 nnoremap <leader>v :tabe $MYVIMRC<cr>
+nnoremap <leader>q :copen<cr>
 "nnoremap <leader>v <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " Vundle shortkeys
@@ -398,16 +401,6 @@ endfunction
 
 " }}}
 " Non overwritng Paste {{{
-
-" map paste, yank and delete to named register so the content
-" will not be overwritten
-" downside is the OS intergration is gone with this config
-nnoremap d "xd
-vnoremap d "xd
-nnoremap y "xy
-vnoremap y "xy
-nnoremap p "xp
-vnoremap p "xp
 
 " }}}
 " Powerline {{{
@@ -533,6 +526,8 @@ let g:ctrlp_working_path_mode = 'ra'
 
 " Do a global search for the keyword under the cursor from current directory
 nnoremap <leader>zz :Ag <C-r><C-w><CR>
+nnoremap <leader>xx :AgFile <C-r><C-w><CR>
+let g:aghighlight=1
 
 " }}}
 " ack.vim {{{
@@ -589,5 +584,17 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " Airline {{{
 
 let g:airline_powerline_fonts = 1
+
+" }}}
+" Session {{{
+
+let g:session_autoload = 'no'
+
+" }}}
+" QFEnter {{{
+
+let g:qfenter_vopen_map = ['<Leader>w']
+let g:qfenter_hopen_map = ['<Leader>s']
+let g:qfenter_topen_map = ['<Leader><Tab>']
 
 " }}}

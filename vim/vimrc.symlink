@@ -26,6 +26,7 @@ Bundle 'gmarik/vundle'
 "Bundle 'Raimondi/delimitMate'
 "Bundle 'Lokaltog/powerline'
 "Bundle 'Valloric/YouCompleteMe'
+"Bundle 'ton/vim-bufsurf'
 
 Bundle 'yssl/QFEnter'
 Bundle "xolox/vim-session"
@@ -322,7 +323,7 @@ nnoremap j gj
 nnoremap k gk
 
 nnoremap <leader>w <C-w>v<C-w>l
-nnoremap <leader>s <C-w>s<C-w>l
+nnoremap <leader>s <C-w>s<C-w>j
 nnoremap <leader>v :tabe $MYVIMRC<cr>
 nnoremap <leader>q :copen<cr>
 "nnoremap <leader>v <C-w><C-v><C-l>:e $MYVIMRC<cr>
@@ -333,8 +334,6 @@ nnoremap <leader>c :BundleClean<cr>
 
 " clear out the search highlight
 nnoremap <leader><space> :noh<cr>
-
-nnoremap <Tab> %
 
 " Let you edit sudo files after opening it
 cmap w!! w !sudo tee % >/dev/null
@@ -520,6 +519,8 @@ let g:ctrlp_user_command = 'ag --follow --nogroup --nobreak --noheading --nocolo
 let g:ctrlp_follow_symlinks = 1
 
 let g:ctrlp_working_path_mode = 'ra'
+
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 
 " }}}
 " ag.vim {{{

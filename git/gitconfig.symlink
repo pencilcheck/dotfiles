@@ -17,6 +17,9 @@
 [push]
   default = simple
 
+[log]
+  decorate = true
+
 [diff]
   tool = opendiff
 

@@ -46,13 +46,7 @@ source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
 # Customize to your needs...
 
-# /usr/local/bin
-export PATH=/usr/local/bin:$PATH
-
-# dotfiles path
 export DOTFILES=$HOME/.dotfiles
-
-# your project folder that we can `c [tab]` to
 export PROJECTS=~/Projects
 
 # optionally set DEFAULT_USER in ~/.zshrc to your regular username to hide the “user” info when you’re logged in as yourself on your local machine.

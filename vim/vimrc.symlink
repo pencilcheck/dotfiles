@@ -306,6 +306,9 @@ set colorcolumn=80
 " remap <leader> key to ,
 let mapleader=","
 
+" Split buffers into windows
+map ,bs :bufdo tab split<CR>
+
 " Key bindings
 noremap <F1> <ESC>
 

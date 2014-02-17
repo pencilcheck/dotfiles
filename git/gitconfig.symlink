@@ -25,6 +25,8 @@
 
 [alias]
   check-renames = "!git status --porcelain | grep '^\\s*[DR]' | sed 's/^\\s*[DR]\\s*//' | sed 's/ -> .*//g' | git grep-files"
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  add-unmerged  = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 
 [merge]
   tool = opendiff

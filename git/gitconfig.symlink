@@ -23,5 +23,8 @@
 [diff]
   tool = opendiff
 
+[alias]
+  check-renames = "!git status --porcelain | grep '^\\s*[DR]' | sed 's/^\\s*[DR]\\s*//' | sed 's/ -> .*//g' | git grep-files"
+
 [merge]
   tool = opendiff

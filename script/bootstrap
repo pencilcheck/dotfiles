@@ -31,6 +31,11 @@ setup_git_submodules () {
   git submodule update
 }
 
+setup_vim () {
+  vim +BundleInstall
+  # install exuberant-ctags if it is not present
+}
+
 link_files () {
   ln -s $1 $2
   success "linked $1 to $2"
@@ -119,6 +124,7 @@ install_dotfiles () {
 # to pass in script arguments into functions as well, e.g. $0, $1
 install_dotfiles "$@"
 setup_git_submodules
+setup_vim
 
 echo ''
 echo '  All installed!'

@@ -28,6 +28,7 @@ Bundle 'gmarik/vundle'
 "Bundle 'Valloric/YouCompleteMe'
 "Bundle 'ton/vim-bufsurf'
 
+Bundle 'vim-scripts/YankRing.vim'
 Bundle 'yssl/QFEnter'
 Bundle "xolox/vim-session"
 Bundle 'junegunn/seoul256.vim'
@@ -47,8 +48,8 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'Shougo/neocomplcache.vim'
 " Replacement for powerline
 Bundle 'bling/vim-airline' 
+"Bundle 'dkprice/vim-easygrep'
 "Bundle 'mileszs/ack.vim'
-" Ag is faster than Ack
 Bundle 'rking/ag.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'tpope/vim-endwise'
@@ -513,14 +514,12 @@ hi MatchParen term=underline cterm=underline ctermfg=147 ctermbg=235 gui=underli
 "let g:ctrlp_max_depth = 10
 " Make CtrlP use ag command. Way faster and no useless filters
 " Use ag (The silver searcher) instead for a speed boost
-let g:ctrlp_user_command = 'ag --follow --nogroup --nobreak --noheading --nocolor -a -g "" %s '
+"let g:ctrlp_user_command = 'ag --follow --nogroup --nobreak --noheading --nocolor -a -g "" %s '
 
 " does not apply when user_command is used
 let g:ctrlp_follow_symlinks = 1
 
 let g:ctrlp_working_path_mode = 'ra'
-
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 
 " }}}
 " ag.vim {{{

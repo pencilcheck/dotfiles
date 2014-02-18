@@ -28,7 +28,7 @@ Bundle 'gmarik/vundle'
 "Bundle 'Valloric/YouCompleteMe'
 "Bundle 'ton/vim-bufsurf'
 
-Bundle 'vim-scripts/YankRing.vim'
+Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'yssl/QFEnter'
 Bundle "xolox/vim-session"
 Bundle 'junegunn/seoul256.vim'
@@ -307,7 +307,7 @@ set colorcolumn=80
 let mapleader=","
 
 " Split buffers into windows
-map ,bs :bufdo tab split<CR>
+map ,bs :tab sball<CR>
 
 " Key bindings
 noremap <F1> <ESC>
@@ -519,6 +519,8 @@ hi MatchParen term=underline cterm=underline ctermfg=147 ctermbg=235 gui=underli
 " Use ag (The silver searcher) instead for a speed boost
 "let g:ctrlp_user_command = 'ag --follow --nogroup --nobreak --noheading --nocolor -a -g "" %s '
 
+let g:ctrlp_cmd = 'CtrlPMixed'
+
 " does not apply when user_command is used
 let g:ctrlp_follow_symlinks = 1
 
@@ -599,5 +601,11 @@ let g:session_autoload = 'no'
 let g:qfenter_vopen_map = ['<Leader>w']
 let g:qfenter_hopen_map = ['<Leader>s']
 let g:qfenter_topen_map = ['<Leader><Tab>']
+
+" }}}
+" yankstack {{{
+
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
 
 " }}}

@@ -516,8 +516,7 @@ hi MatchParen term=underline cterm=underline ctermfg=147 ctermbg=235 gui=underli
 " Improve performance
 "let g:ctrlp_max_depth = 10
 " Make CtrlP use ag command. Way faster and no useless filters
-" Use ag (The silver searcher) instead for a speed boost
-"let g:ctrlp_user_command = 'ag --follow --nogroup --nobreak --noheading --nocolor -a -g "" %s '
+let g:ctrlp_user_command = 'ag --follow --nogroup --nobreak --noheading --nocolor -a -g "" %s '
 
 let g:ctrlp_cmd = 'CtrlPMixed'
 
@@ -530,8 +529,10 @@ let g:ctrlp_working_path_mode = 'ra'
 " ag.vim {{{
 
 " Do a global search for the keyword under the cursor from current directory
-nnoremap <leader>zz :Ag <C-r><C-w><CR>
-nnoremap <leader>xx :AgFile <C-r><C-w><CR>
+" https://github.com/rking/ag.vim/issues/21
+" Ag! prevents from jumping to first result when searched
+nnoremap <leader>zz :Ag! <C-r><C-w><CR>
+nnoremap <leader>xx :AgFile! <C-r><C-w><CR>
 let g:aghighlight=1
 
 " }}}

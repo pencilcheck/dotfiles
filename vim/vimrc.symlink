@@ -18,7 +18,7 @@ call vundle#rc()
 " required
 Bundle 'gmarik/vundle'
 
-" Pretty annoying, blacklisted for now
+" Blacklisted
 "Bundle 'tpope/vim-speeddating'
 "Bundle 'tpope/vim-commentary'
 "Bundle 'tpope/vim-abolish'
@@ -28,42 +28,8 @@ Bundle 'gmarik/vundle'
 "Bundle 'Valloric/YouCompleteMe'
 "Bundle 'ton/vim-bufsurf'
 
-Bundle 'maxbrunsfeld/vim-yankstack'
-Bundle 'yssl/QFEnter'
-Bundle "xolox/vim-session"
-Bundle 'junegunn/seoul256.vim'
-Bundle 'lukaszb/vim-web-indent'
-Bundle 'elzr/vim-json'
-Bundle 'tpope/vim-haml'
-Bundle 'tomasr/molokai'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'slim-template/vim-slim'
-Bundle 'davidkariuki/sexy-railscasts-256-theme'
-Bundle 'endel/vim-github-colorscheme'
-Bundle 'puppetlabs/puppet-syntax-vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'kien/ctrlp.vim'
-Bundle 'Shougo/neocomplcache.vim'
-" Replacement for powerline
-Bundle 'bling/vim-airline' 
-"Bundle 'dkprice/vim-easygrep'
-"Bundle 'mileszs/ack.vim'
-Bundle 'rking/ag.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'tpope/vim-endwise'
-
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'xolox/vim-misc' 
-Bundle 'xolox/vim-easytags'
-Bundle 'tpope/vim-surround'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'xolox/vim-reload'
-Bundle 'sjl/gundo.vim'
-
+" Unused
+"Bundle 'Shougo/neocomplcache.vim'
 "Bundle 'vim-scripts/TeX-PDF'
 "Bundle 'tpope/vim-bundler'
 "Bundle 'tpope/vim-rake'
@@ -76,6 +42,44 @@ Bundle 'sjl/gundo.vim'
 "Bundle 'kana/vim-textobj-user'
 "Bundle 'terryma/vim-multiple-cursors'
 "Bundle 'terryma/vim-expand-region'
+"Bundle 'dkprice/vim-easygrep'
+"Bundle 'mileszs/ack.vim'
+
+" Used
+Bundle 'yssl/QFEnter'
+Bundle 'xolox/vim-session'
+Bundle 'majutsushi/tagbar'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-rails'
+Bundle 'xolox/vim-misc' 
+Bundle 'xolox/vim-easytags'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'sjl/gundo.vim'
+Bundle 'xolox/vim-reload'
+Bundle 'othree/javascript-libraries-syntax.vim'
+
+Bundle 'tpope/vim-fugitive'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'maxbrunsfeld/vim-yankstack'
+Bundle 'kien/ctrlp.vim'
+Bundle 'bling/vim-airline' 
+Bundle 'tpope/vim-surround'
+
+Bundle 'rking/ag.vim'
+Bundle 'junegunn/seoul256.vim'
+Bundle 'lukaszb/vim-web-indent'
+Bundle 'elzr/vim-json'
+Bundle 'tpope/vim-haml'
+Bundle 'tomasr/molokai'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'slim-template/vim-slim'
+Bundle 'davidkariuki/sexy-railscasts-256-theme'
+Bundle 'endel/vim-github-colorscheme'
+Bundle 'puppetlabs/puppet-syntax-vim'
+
 
 "
 " Brief help
@@ -203,6 +207,9 @@ nnoremap <Space> za
 
 set wildignore+=*.o,*.obj,.git,.svn,*.pyc,*/tmp/*,*.so,*.swp,*.zip
 set fileencodings=utf-8,big5,euc-jp,euc-kr,gbk,utf-bom,iso8859-1,latin1
+
+set ttimeout
+set ttimeoutlen=10
 
 set modelines=2
 
@@ -366,10 +373,12 @@ augroup END
 " }}}
 " Colorscheme {{{
 
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
 syntax on
+colorscheme seoul256
+
 "colorscheme wombat
 "colorscheme molokai
-colorscheme seoul256
 "colorscheme zenburn
 if has("gui_running")
   "colorscheme github
@@ -608,5 +617,10 @@ let g:qfenter_topen_map = ['<Leader><Tab>']
 
 nmap <leader>p <Plug>yankstack_substitute_older_paste
 nmap <leader>P <Plug>yankstack_substitute_newer_paste
+
+" }}}
+" javascript-libraries-syntax.vim
+
+let g:used_javascript_libs = 'angularjs,angularui,underscore,backbone'
 
 " }}}

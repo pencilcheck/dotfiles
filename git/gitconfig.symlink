@@ -1,12 +1,12 @@
 [user]
-  email = pennsu@gmail.com
-  name = Penn Su
+	email = penn@gameyourgame.com
+	name = Penn Su
 
 [github]
   user = pencilcheck
 
 [core]
-  excludesfile = ~/.gitignore
+	excludesfile = /Users/activemindtechnology/.gitignore_global
 
 [color]
   ui = auto
@@ -24,9 +24,26 @@
   tool = opendiff
 
 [alias]
+  st            = status
+  ci            = commit
+  br            = branch
+  co            = checkout
+  df            = diff
+  dc            = diff --cached
+  lg            = log -p
+  l             = log --oneline --abbrev-commit --all --graph --decorate --color
+  who           = shortlog -s --
+  undo          = reset --hard
   check-renames = "!git status --porcelain | grep '^\\s*[DR]' | sed 's/^\\s*[DR]\\s*//' | sed 's/ -> .*//g' | git grep-files"
   edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
   add-unmerged  = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 
+
 [merge]
   tool = opendiff
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

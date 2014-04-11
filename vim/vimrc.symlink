@@ -235,7 +235,7 @@ set showmode
 set showcmd
 set ruler
 set lazyredraw
-set hidden                                  " hides buffer
+"set hidden
 set wildmenu
 set wildmode=list:longest,full
 set visualbell

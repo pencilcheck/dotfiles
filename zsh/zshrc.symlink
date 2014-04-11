@@ -91,3 +91,4 @@ unset config_files
 bindkey -s '^o' 'ranger-cd^m'
 
 [ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
+nvm use 0.10

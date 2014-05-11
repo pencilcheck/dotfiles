@@ -44,10 +44,10 @@ Bundle 'gmarik/vundle'
 "Bundle 'terryma/vim-expand-region'
 "Bundle 'dkprice/vim-easygrep'
 "Bundle 'mileszs/ack.vim'
+"Bundle 'xolox/vim-session'
 
 " Used
 Bundle 'yssl/QFEnter'
-Bundle 'xolox/vim-session'
 Bundle 'majutsushi/tagbar'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-rails'

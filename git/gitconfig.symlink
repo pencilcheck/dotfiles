@@ -1,12 +1,9 @@
 [user]
-	email = penn@gameyourgame.com
-	name = Penn Su
+  email = pennsu@gmail.com
+  name = Penn Su
 
 [github]
   user = pencilcheck
-
-[core]
-	excludesfile = /Users/activemindtechnology/.gitignore_global
 
 [color]
   ui = auto
@@ -24,6 +21,9 @@
   tool = opendiff
 
 [alias]
+  rb            = rebase
+  mr            = merge
+  ad            = add
   st            = status
   ci            = commit
   br            = branch

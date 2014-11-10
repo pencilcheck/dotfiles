@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Attach to tmux session named the same as current directory
 
-tmux attach -t `basename $PWD`
+BASE=`basename $PWD`
+tmux attach -t ${BASE#.}

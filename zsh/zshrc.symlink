@@ -40,7 +40,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vi-mode vundle)
+plugins=(git vi-mode vundle zsh-syntax-highlighting)
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
@@ -89,6 +89,9 @@ unset config_files
 
 # EXTRA: This binds Ctrl-O to ranger-cd:
 bindkey -s '^o' 'ranger-cd^m'
+
+# Loads z from homebrew
+. `brew --prefix`/etc/profile.d/z.sh
 
 [ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
 nvm use 0.10

@@ -7,6 +7,7 @@
 # Author: Penn Su (pennsu@gmail.com)
 
 RECIPES="brew-cask
+z
 sqlite
 the_silver_searcher
 tmux

@@ -1,0 +1,4 @@
+docker stop $(docker ps -aq)
+docker rm $(docker ps -aq)
+docker images --no-trunc | grep none | awk '{print $3}' | xargs docker rmi
+#docker images --no-trunc | awk '{print $3}' | xargs docker rmi

@@ -1,4 +1,4 @@
 alias ls='ls -G'
-alias lls='ls -alG'
-alias vbi='vim +BundleInstall +qall'
+alias lsal='ls -alG'
+alias vpi='vim +PluginInstall +qall'
 alias ssh='ssh-add -l || ssh-add && ssh'

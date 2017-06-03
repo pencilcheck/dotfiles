@@ -1,4 +1,5 @@
 alias ls='ls -G'
 alias lsal='ls -alG'
-alias vpi='vim +PluginInstall +qall'
+alias vpi='nvim +PlugUpgrade +PlugInstall +qall'
+alias vci='nvim +PlugClean +qall'
 alias ssh='ssh-add -l || ssh-add && ssh'

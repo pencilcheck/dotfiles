@@ -2,5 +2,5 @@
 #
 # Attach to tmux session named the same as current directory
 
-BASE=`basename $PWD`
+BASE=`echo $PWD`
 tmux attach -t ${BASE#.}

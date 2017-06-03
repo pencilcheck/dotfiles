@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+PROMPT_LOCATION=~/.dotfiles/zsh/shell_prompt.zsh
+rm -rf $PROMPT_LOCATION
+vim +\'PromptlineSnapshot $PROMPT_LOCATION\' +qall
+source ~/.zshrc

@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# Find and replace by a given list of files.
+# Find and replace in files given.
 #
-# replace foo bar **/*.rb
+# rif foo bar **/*.rb
 
 find_this=$1
 shift

@@ -2,5 +2,5 @@
 #
 # Creates tmux session named the same as current directory
 
-BASE=`basename $PWD`
+BASE=`echo $PWD`
 tmux new -s ${BASE#.}

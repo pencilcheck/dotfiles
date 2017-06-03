@@ -3,70 +3,84 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix # if C-a again, send it through
 
-# mouse mode on
-setw -g mode-mouse on
-
 # reload
 bind r source-file ~/.tmux.conf
 
-# change foreground-background for the current window
-#setw -g window-status-current-attr reverse
-setw -g monitor-activity on
-
-setw -g mode-keys vi
-
-# stop renaming the windows automatically damnit
-set-option -g allow-rename off
-
-# sane mouse scrolling within pane
-#setw -g mode-mouse on
-
-# mouse reporting in iterm2
-#set -g mouse-utf8 on
-
-# set active pane border to blue
-set-option -g pane-active-border-fg blue
-
-# vi bindings for copy mode
-unbind [
-bind Escape copy-mode
-# vi bindings for selection
-bind-key -t vi-copy 'v' begin-selection
-bind-key -t vi-copy 'y' copy-selection
-
-unbind p
-bind p paste-buffer
-
-# copying/pasting to Mac clipboard
-# http://unix.stackexchange.com/a/32451
-set-option -g default-command "reattach-to-user-namespace -l zsh" # or bash...
-bind y run-shell "tmux save-buffer - | reattach-to-user-namespace pbcopy"
-#bind p run "pbpaste | tmux load-buffer - && tmux paste-buffer"
-
-# list all paste buffers (default key is '#')
-bind-key b list-buffers
-
-# choose buffer to paste interactively (default key was '=')
-bind-key v choose-buffer
-
-# Titles {{{
-set-option -g set-titles on
-set-option -g set-titles-string '#W(#P) - #T'
-set-window-option -g automatic-rename on
-# }}}
-
-# Set status bar {{{
-set -g status-bg blue
-set -g status-fg white
-set -g status-left '#[fg=green]#'
-set-window-option -g window-status-current-bg red
-
-# highlight status bar on activity
-#set -g visual-activity on
-
+# Make sure $TERM outside tmux is set to "xterm-256color"
+# Add truecolor support
+set-option -ga terminal-overrides ",xterm-256color:Tc"
 # enable color in tmux
 # http://superuser.com/questions/399296/256-color-support-for-vim-background-in-tmux
 set -g default-terminal "screen-256color"
+
+# one based indexing for window numbering
+set -g base-index 1
+
+# aggressive-resize makes it such that the window is only resized if the smaller client is actively looking at it
+setw -g aggressive-resize on
+
+# increase history to 100k lines
+set -g history-limit 100000
+
+# resize pane
+bind -n C-M-h resize-pane -L 5
+bind -n C-M-j resize-pane -D 5
+bind -n C-M-k resize-pane -U 5
+bind -n C-M-l resize-pane -R 5
+
+# renumber windows (no more 1, 3, 4)
+set-option -g renumber-windows on
+
+# renumber windows (if you have gaps in numbering, this renumbers them sequentially
+# ^a r
+bind r movew -r
+
+# reduce response time for escape key
+set -g escape-time 10
+
+# split the screen into a main screen and an 80-width pane
+# with PREFIX, the 80-width pane is split horizontally
+bind g split-window -h -c "#{pane_current_path}"\; resize-pane -x 80 \; split-window -v -c "#{pane_current_path}" \; select-pane -t 0
+bind -n C-g split-window -h -c "#{pane_current_path}" \; resize-pane -x 80 \; select-pane -t 0
+
+# TPM Plugins {{{
+
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-sessionist'
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-open'
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'git@github.com/user/plugin'
+# set -g @plugin 'git@bitbucket.com/user/plugin'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+
+# }}}
+
+# Swap {{{
+
+unbind {
+unbind }
+unbind L
+
+bind K swap-pane -U
+bind J swap-pane -D
+#bind H swap-pane -L
+#bind L swap-pane -R
+
+# move current window left and right in the tab list, respectively.
+bind '<' swap-window -t -1
+bind '>' swap-window -t +1
+
+# }}}
+
+# Split {{{
 
 # hsplit
 unbind %
@@ -76,21 +90,132 @@ bind | split-window -h
 unbind '"'
 bind _ split-window -v
 
-# use the vim motion keys to move between panes
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
+# }}}
 
-# resize pane
-bind -r H resize-pane -L 5
-bind -r J resize-pane -D 5
-bind -r K resize-pane -U 5
-bind -r L resize-pane -R 5
+# Mouse {{{
+# mouse mode on and sane mouse scrolling within pane
+set-option -g mouse on
+bind -n WheelUpPane   select-pane -t= \; copy-mode -e \; send-keys -M
+bind -n WheelDownPane select-pane -t= \;                 send-keys -M
+
+
+#setw -g mode-mouse on
+
+#set -g mouse-resize-pane on
+#set -g mouse-select-pane on
+#set -g mouse-select-window on
+
+# switching the currently focused pane by mouse click
+#set-option -g mouse-select-pane on
+
+# mouse reporting in iterm2
+#set -g mouse-utf8 on
+# }}}
+
+# Copy and paste integration {{{
+
+# http://unix.stackexchange.com/a/32451
+set-option -g default-command "reattach-to-user-namespace -l zsh" # or bash...
+
+setw -g mode-keys vi
+
+# vi bindings for copy mode
+unbind [
+
+# prefix <esc> to activate copy mode
+bind Escape copy-mode
+
+# vi bindings for selection
+bind-key -t vi-copy v begin-selection
+bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+#bind y run-shell "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+#bind-key -t vi-copy y copy-selection
+
+unbind -t vi-copy Enter
+bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+
+bind p run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"
+#bind p paste-buffer
+#bind p run "pbpaste | tmux load-buffer - && tmux paste-buffer"
+
+# list all paste buffers (default key is '#')
+bind-key b list-buffers
+
+# choose buffer to paste interactively (default key was '=')
+bind-key v choose-buffer
+
+# }}}
+
+# Smart pane switching with awareness of vim splits {{{
+is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(diff)?$"'
+bind -n C-h if-shell "$is_vim" "send-keys C-h" "select-pane -L"
+bind -n C-j if-shell "$is_vim" "send-keys C-j" "select-pane -D"
+bind -n C-k if-shell "$is_vim" "send-keys C-k" "select-pane -U"
+bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
+bind -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
+
+# use the vim motion keys to move between panes
+#bind h select-pane -L
+#bind j select-pane -D
+#bind k select-pane -U
+#bind l select-pane -R
+# }}}
+
+# Turn off visual bell, turn on audible bell {{{
+set-option -g bell-action any
+set-option -g visual-bell off
+# }}}
+
+# Titles {{{
+set-option -g set-titles on
+#set-option -g set-titles-string '#W(#P) - #T'
+set-option -g set-titles-string '#H:#S.#I.#P #W #T' # window number,program name, active(or not)
+#set-window-option -g automatic-rename on
+# stop renaming the windows automatically damnit
+#set-option -g allow-rename off
+
+# change foreground-background for the current window
+#setw -g window-status-current-attr reverse
+setw -g monitor-activity on
+# }}}
 
 # Theme {{{
 
+# Set default status bar
+set -g status-bg blue
+set -g status-fg white
+set -g status-left '#[fg=green]#'
+set-window-option -g window-status-current-bg red
+
+# highlight status bar on activity
+#set -g visual-activity on
+
+# set active pane border to blue
+set-option -g pane-active-border-fg blue
+
 # load tmuxline theme
 if-shell "test -f ~/.tmuxline.conf" "source ~/.tmuxline.conf"
+
+# }}}
+
+# tmux-resurrect {{{
+
+# restore vim session with tmux session restore, use tpope/vim-obsession for saving vim session
+set -g @resurrect-strategy-vim 'session'
+# for neovim
+set -g @resurrect-strategy-nvim "session"
+
+# restore pane contents
+set -g @resurrect-capture-pane-contents "on"
+
+# restore bash history
+set -g @resurrect-save-bash-history 'on'
+
+# }}}
+
+# tmux-continuum {{{
+
+# Last saved environment is automatically restored when tmux is started.
+set -g @continuum-restore 'on'
 
 # }}}

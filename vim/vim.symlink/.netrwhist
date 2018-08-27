@@ -1,5 +1,4 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/penn/.pow'
-let g:netrw_dirhist_2='/Users/penn/Scratchpad/tacaw-java-beta-9/com'
-let g:netrw_dirhist_3='/Users/penn/Scratchpad/畫面截圖'
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/Users/penn/Projects/blackties/inxster/.next/dist/bundles/pages'
+let g:netrw_dirhist_2='/Users/penn/Projects/blackties/react-calendar-timeline/demo/app/demo-main'

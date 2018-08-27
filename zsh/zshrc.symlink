@@ -40,7 +40,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vi-mode vundle zsh-syntax-highlighting)
+plugins=(git gitfast git-extras vi-mode vundle zsh-syntax-highlighting)
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
@@ -85,6 +85,9 @@ do
   source $file
 done
 
+# :PromptlineSnapshot ~/.dotfiles/zsh/shell_prompt.zsh airline_visual powerlineclone
+source $DOTFILES/zsh/shell_prompt.zsh
+
 unset config_files
 
 # EXTRA: This binds Ctrl-O to ranger-cd:
@@ -93,5 +96,19 @@ bindkey -s '^o' 'ranger-cd^m'
 # Loads z from homebrew
 . `brew --prefix`/etc/profile.d/z.sh
 
+# https://github.com/GoogleCloudPlatform/gcloud/issues/25
+export CLOUDSDK_PYTHON=/usr/bin/python
+
+git config --global core.excludesfile ~/.gitignore_global
+
 [ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
-nvm use 0.10
+nvm use
+#nvm alias default 0.12
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+export PATH=/Users/penn/.local/bin/luna-studio:$PATH
+ssh-add -K ~/.ssh/github_rsa

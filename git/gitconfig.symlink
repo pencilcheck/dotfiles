@@ -1,6 +1,6 @@
 [user]
-  email = pennsu@gmail.com
-  name = Penn Su
+	email = pennsu@gmail.com
+	name = Penn Su
 
 [github]
   user = pencilcheck
@@ -37,7 +37,8 @@
   check-renames = "!git status --porcelain | grep '^\\s*[DR]' | sed 's/^\\s*[DR]\\s*//' | sed 's/ -> .*//g' | git grep-files"
   edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
   add-unmerged  = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
-
+  pdiff         = !TAG=$(git describe --no-abbrev --tags --match production-*) && git diff $TAG
+  sdiff         = !TAG=$(git describe --no-abbrev --tags --match staging-*) && git diff $TAG
 
 [merge]
   tool = opendiff
@@ -47,3 +48,14 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[filter "media"]
+	clean = git media clean %f
+	smudge = git media smudge %f
+	required = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
+[core]
+	excludesfile = /Users/penn/.gitignore_global

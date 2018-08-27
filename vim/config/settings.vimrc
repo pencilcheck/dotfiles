@@ -14,10 +14,6 @@ set fileencodings=utf-8,big5,euc-jp,euc-kr,gbk,utf-bom,iso8859-1,latin1
 
 set modelines=2
 
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-
 set splitbelow
 set splitright
 
@@ -40,7 +36,7 @@ set wildmenu
 set wildmode=list:longest,full
 set visualbell
 set noerrorbells
-set cursorline
+set nocursorline
 set ttyfast
 set ft=sh
 set backspace=indent,eol,start
@@ -71,6 +67,7 @@ set incsearch
 set showmatch
 set hlsearch
 
+set nowrapscan " don't wrap when search
 "set wrap
 "set linebreak
 "set textwidth=80
@@ -79,9 +76,79 @@ set formatoptions=tqrn1
 " For ColorColumn
 set colorcolumn=100
 
+" Live substitution (neovim)
+if exists('&inccommand')
+  set inccommand=split
+endif
+
 " Instead of showing for all columns, only highlight lines that go over
 "highlight ColorColumn ctermbg=red
 "call matchadd('ColorColumn', '\%81v', 100)
+
+" }}}
+" {{{ Enable 24bit true color support
+
+"Credit joshdick
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  "let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+  "set termguicolors
+endif
+
+" Set Vim-specific sequences for RGB colors
+" https://github.com/vim/vim/issues/993
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+" }}}
+" Colorscheme/Syntax {{{
+
+" true color
+if (has("termguicolors"))
+  "set background=dark " for the dark version
+  "set background=light " for the light version
+  "let g:one_allow_italics = 1 " I love italic for comments
+  "colorscheme one
+endif
+
+" 256 color
+if &t_Co >= 256
+  "colorscheme gruvbox
+  "colorscheme disco
+  "colorscheme lettuce
+  "colorscheme inkpot
+  "colorscheme gentooish
+  "colorscheme heroku-terminal
+  colorscheme seoul256
+  "colorscheme seoul256-light
+  "colorscheme dracula
+  "colorscheme wombat
+  "colorscheme wombat256mod
+  "colorscheme molokai
+  "colorscheme zenburn
+  "colorscheme railscasts
+  "colorscheme sexy-railscasts-256
+  "colorscheme solarized
+endif
+
+" gui
+if has("gui_running")
+  "colorscheme zenburn
+  "colorscheme seoul256
+  "colorscheme seoul256-light
+  "colorscheme dracula
+  "colorscheme heroku
+  "colorscheme github
+  "colorscheme railscasts
+endif
 
 " }}}
 " {{{ Font and ligature
@@ -94,7 +161,10 @@ endif
 if has('gui_running')
   " powerline arrow aligned (for Terminal.app > 18pt), almost full powerline charset (missing ===), ligature is not showing up in Macvim
   " https://github.com/be5invis/Iosevka/issues/56
-  set guifont=Iosevka:h12
+  "set guifont=Iosevka:h18
+  set guifont=IosevkaNerdFontC-Light:h16
+
+  "set guifont=KnackNerdFontC-Regular:h18
 
   " powerline arrow aligned, full powerline charset, no ligature support in Macvim
   "set guifont=Fantasque\ Sans\ Mono:h18 
@@ -141,147 +211,13 @@ set undodir=~/.vim/undodir
 set undofile
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-
-" }}}
-" Resize windows (key bindings only work in iterms where meta key is set to +esc) {{{
-
-set winminwidth=0
-set winminheight=0
-
-function! VimNavigate(direction)
-  execute 'wincmd ' . a:direction
-endfunction
-
-function! VimRestore(nr)
-  execute a:nr . "wincmd w"
-endfunction
-
-function! DetermineLocation()
-  let nr = winnr()
-  let locations = []
-  call VimNavigate('h')
-  if (nr ==? winnr())
-    call add(locations, 'left')
-  else
-    call VimRestore(nr)
-  endif
-
-  call VimNavigate('l')
-  if (nr ==? winnr())
-    call add(locations, 'right')
-  else
-    call VimRestore(nr)
-  end
-
-  call VimNavigate('k')
-  if (nr ==? winnr())
-    call add(locations, 'top')
-  else
-    call VimRestore(nr)
-  endif
-
-  call VimNavigate('j')
-  if (nr ==? winnr())
-    call add(locations, 'bottom')
-  else
-    call VimRestore(nr)
-  endif
-
-  return locations
-endfunction
-
-function! MyResize(dir)
-  let location_right = 0
-  let location_left = 0
-  let location_top = 0
-  let location_bottom = 0
-  let locations = DetermineLocation()
-  for location in locations
-    if (location ==? 'right')
-      let location_right = 1
-    elseif (location ==? 'left')
-      let location_left = 1
-    elseif (location ==? 'top')
-      let location_top = 1
-    elseif (location ==? 'bottom')
-      let location_bottom = 1
-    endif
-  endfor
-
-  let prefix = "normal 5\<c-w>"
-  let cmd = ''
-
-  if ('=' ==# a:dir)
-    let prefix = "normal \<c-w>"
-    let cmd = "="
-  endif
-
-  if ('h' ==# a:dir)
-    if (location_right == 1)
-      let cmd = ">"
-    else
-      let cmd = "<"
-    endif
-  endif
-
-  if ('l' ==# a:dir)
-    if (location_right == 1)
-      let cmd = "<"
-    else
-      let cmd = ">"
-    endif
-  endif
-
-  if ('k' ==# a:dir)
-    if (location_bottom == 1)
-      let cmd = "+"
-    else
-      let cmd = "-"
-    endif
-  endif
-
-  if ('j' ==# a:dir)
-    if (location_bottom == 1)
-      let cmd = "-"
-    else
-      let cmd = "+"
-    endif
-  endif
-
-  " Only one window, pointless to resize
-  if (location_right == 1 && location_left == 1 && location_top == 1 && location_bottom == 1)
-    let prefix = ''
-    let cmd = ''
-  endif
-
-  exec prefix . cmd
-endfunction
-
-if has('nvim')
-  " Alt-hjkl key bindings, for nvim
-  nnoremap <A-/> :echo DetermineLocation()<CR>
-  nnoremap <A-K> :call MyResize('k')<CR>
-  nnoremap <A-J> :call MyResize('j')<CR>
-  nnoremap <A-L> :call MyResize('l')<CR>
-  nnoremap <A-H> :call MyResize('h')<CR>
-  nnoremap <A-=> :call MyResize('=')<CR>
-else
-  " Alt-hjkl key bindings, but in printed character, otherwise vim cannot
-  " recognize (this is for vim)
-  nnoremap / :echo DetermineLocation()<CR>
-  nnoremap K :call MyResize('k')<CR>
-  nnoremap J :call MyResize('j')<CR>
-  nnoremap L :call MyResize('l')<CR>
-  nnoremap H :call MyResize('h')<CR>
-  nnoremap = :call MyResize('=')<CR>
-endif
+set noswapfile
 
 " }}}
 " {{{ Tab setup
 
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 set smarttab
-set expandtab
-"set noexpandtab
 
 " }}}
 " {{{ Indentation
@@ -308,6 +244,17 @@ set nowritebackup " write directly to original file instead of the original vim 
 " need to create the directory or those will not work
 set backupdir=~/.vimtmp,.
 set directory=~/.vimtmp,.
+
+" }}}
+" {{{ Statusline
+
+set laststatus=2
+set statusline=%f "tail of the filename
+hi StatusLine ctermfg=86 ctermbg=117 guifg=#2c323c guibg=#87d7ff
+hi StatusLineNC ctermfg=86 ctermbg=145 guifg=#2c323c guibg=#abb2bf
+
+"hi StatusLine ctermfg=86 ctermbg=145 guifg=#2c323c guibg=#abb2bf
+"hi StatusLineNC ctermfg=86 ctermbg=145 guifg=#2c323c guibg=#abb2bf
 
 " }}}
 
@@ -340,64 +287,6 @@ augroup END
 " {{{ Clear syntax for a large file with a very long first line
 
 autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
-
-" }}}
-" {{{ Enable 24bit true color support
-
-"Credit joshdick
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-if (has("termguicolors"))
-  set termguicolors
-endif
-
-" Set Vim-specific sequences for RGB colors
-" https://github.com/vim/vim/issues/993
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-" }}}
-" Colorscheme/Syntax {{{
-
-set background=dark " for the dark version
-"set background=light " for the light version
-let g:one_allow_italics = 1 " I love italic for comments
-colorscheme one
-
-if &t_Co >= 256
-  "colorscheme lettuce
-  "colorscheme inkpot
-  "colorscheme gentooish
-  "colorscheme heroku-terminal
-  "colorscheme seoul256
-  "colorscheme seoul256-light
-  "colorscheme dracula
-  "colorscheme wombat
-  "colorscheme wombat256mod
-  "colorscheme molokai
-  "colorscheme zenburn
-  "colorscheme railscasts
-  "colorscheme sexy-railscasts-256
-  "colorscheme solarized
-endif
-
-if has("gui_running")
-  "colorscheme zenburn
-  "colorscheme seoul256
-  "colorscheme seoul256-light
-  "colorscheme dracula
-  "colorscheme heroku
-  "colorscheme github
-  "colorscheme railscasts
-endif
 
 " }}}
 " Custom file syntax highlighting {{{

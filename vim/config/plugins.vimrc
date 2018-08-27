@@ -1,3 +1,6 @@
+" {{{ netrw
+let g:netrw_keepdir=1
+" }}}
 " Fugitive {{{
 
 nnoremap gst :Gstatus<CR>
@@ -25,8 +28,10 @@ nnoremap glg :Glog -- %<CR>
 " }}}
 " Sy (signify) {{{
 
+let g:signify_realtime = 0
+let g:signify_update_on_bufenter = 0
+let g:signify_update_on_focusgained = 0
 let g:signify_vcs_list = [ 'git' ]
-"let g:signify_update_on_focusgained = 1
 "let g:signify_cursorhold_normal = 1
 
 " Jump between git diff hunk
@@ -44,13 +49,12 @@ nmap <silent> [h [c
 " NERDTree {{{
 
 "nnoremap <leader>n :NERDTreeToggle<cr>
+let NERDTreeHijackNetrw=0
 
 " }}}
 " NERDTree tabs {{{
 
-nnoremap <leader>n :NERDTreeTabsToggle<cr>
-let g:nerdtree_tabs_open_on_gui_startup = 0
-let g:nerdtree_tabs_open_on_console_startup = 0
+nnoremap <leader>n :NERDTreeMirrorToggle<cr>
 
 " }}}
 " Tagbar {{{
@@ -98,28 +102,28 @@ let g:ctrlp_switch_buffer = 'Et'
 " }}}
 " ack.vim {{{
 
-let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-let g:ackhighlight = 1
-let g:ack_autofold_results = 1
-let g:ack_use_dispatch = 0
+"let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+"let g:ackhighlight = 1
+"let g:ack_autofold_results = 1
+"let g:ack_use_dispatch = 0
 
 " not open first result by default
-cnoreabbrev Ack Ack!
-cnoreabbrev ag Ack!
-cnoreabbrev aG Ack!
-cnoreabbrev Ag Ack!
-cnoreabbrev AG Ack!
+"cnoreabbrev Ack Ack!
+"cnoreabbrev ag Ack!
+"cnoreabbrev aG Ack!
+"cnoreabbrev Ag Ack!
+"cnoreabbrev AG Ack!
 
 " Do a global search for the keyword under the cursor from current directory
 " Ack! prevents from jumping to first result when searched
 "nnoremap <leader>zz :Ack! <C-r><C-w><CR>
-nnoremap <leader>zz :F <C-r><C-w> .<CR>
-nnoremap <leader>xx :AckFile! <C-r><C-w><CR>
+"nnoremap <leader>xx :AckFile! <C-r><C-w><CR>
 
 " }}}
 " vim-easytags {{{
 
 nnoremap <leader>g :UpdateTags<CR>
+
 " it is too slow to load
 let g:easytags_always_enabled = 0
 let g:easytags_python_enabled = 1
@@ -145,30 +149,6 @@ noremap <silent> <leader>y <Esc>:BuildAndViewTexPdf<CR>
 inoremap <silent> <leader>y <Esc>:BuildAndViewTexPdf<CR>
 
 " }}}
-" Neocomplcache {{{
-
-"let g:neocomplcache_enable_at_startup = 1
-"let g:neocomplcache_enable_smart_case = 1
-" Enable heavy features.
-" Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
-
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" }}}
-" Bufferline {{{
-
-let g:bufferline_rotate = 1
-" Statusline integration
-let g:bufferline_echo = 0
-autocmd VimEnter *
-      \ let &statusline='%{bufferline#refresh_status()}'
-      \ .bufferline#get_status_string()
-
-" }}}
 " Session {{{
 
 let g:session_autoload = 'no'
@@ -183,7 +163,25 @@ let g:qfenter_topen_map = ['<Leader><Tab>']
 " }}}
 " neocomplete.vim {{{
 
-let g:neocomplete#enable_at_startup = 1
+if has('nvim')
+  "let g:neocomplete#enable_at_startup = 1
+endif
+
+" }}}
+" {{{ deoplete.nvim
+
+if has('nvim')
+  let g:deoplete#enable_at_startup = 1
+endif
+
+"inoremap <silent><expr> <TAB>
+"\ pumvisible() ? "\<C-n>" :
+"\ <SID>check_back_space() ? "\<TAB>" :
+"\ deoplete#mappings#manual_complete()
+"function! s:check_back_space() abort "{{{
+"let col = col('.') - 1
+"return !col || getline('.')[col - 1]  =~ '\s'
+"endfunction"}}}
 
 " }}}
 " yankrank {{{
@@ -203,6 +201,11 @@ let g:neocomplete#enable_at_startup = 1
 " vim-polyglot {{{
 
 "let g:polyglot_disabled = ['javascript']
+
+" }}}
+" semantic-highlight {{{
+
+"au BufNewFile,BufRead *.js SemanticHighlight
 
 " }}}
 " Dragvisuals {{{
@@ -250,15 +253,6 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 "map <Leader>s :call RunNearestSpec()<CR>
 "map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
-
-" }}}
-" YankRing {{{
-
-let g:yankring_replace_n_pkey = '<leader>['
-let g:yankring_replace_n_nkey = '<leader>]'
-" ,y to show the yankring
-nmap <leader>y :YRShow<cr>
-let g:yankring_history_dir = '$VIM'
 
 " }}}
 " {{{ Itchy
@@ -310,13 +304,17 @@ noremap <C-p> :FZF<CR>
 " }}}
 " {{{ Far.vim
 
-let g:far#source='ag'
+"if has('nvim')
+  "let g:far#source='agnvim'
+"else
+  let g:far#source='ag'
+"endif
 
-" }}}
-" {{{ deoplete.nvim
+let g:far#auto_preview=0
+let g:far#collapse_result=1
+"let g:far#default_mappings=0
 
-call deoplete#enable()
-let g:deoplete#enable_at_startup = 1
+nnoremap <leader>zz :F <C-r><C-w> .<CR>
 
 " }}}
 " {{{ LargeFile
@@ -325,5 +323,86 @@ let g:deoplete#enable_at_startup = 1
 " things up
 " http://www.vim.org/scripts/script.php?script_id=1506
 let g:LargeFile = 1
+
+" }}}
+" {{{ Xuyuanp/nerdtree-git-plugin
+
+let g:NERDTreeShowIgnoredStatus = 0
+
+" }}}
+" {{{ WindowSwap
+
+" move window to absolute top, left, right, or bottom
+nnoremap <C-J> <C-W>J
+nnoremap <C-K> <C-W>K
+nnoremap <C-L> <C-W>L
+nnoremap <C-H> <C-W>H
+
+let g:windowswap_map_keys = 0 "prevent default bindings
+nmap J :call WindowSwap#EasyWindowSwap()<CR><C-j>:call WindowSwap#EasyWindowSwap()<CR>
+nmap K :call WindowSwap#EasyWindowSwap()<CR><C-k>:call WindowSwap#EasyWindowSwap()<CR>
+nmap L :call WindowSwap#EasyWindowSwap()<CR><C-l>:call WindowSwap#EasyWindowSwap()<CR>
+nmap H :call WindowSwap#EasyWindowSwap()<CR><C-h>:call WindowSwap#EasyWindowSwap()<CR>
+
+" }}}
+" {{{ startify
+
+let g:startify_change_to_dir = 0
+let g:startify_change_to_vcs_root = 1
+let g:startify_bookmarks = [ {'x': '~/.vimrc'}, {'z': '~/.zshrc'} ]
+let g:startify_commands = [ {'m': 'edit .'} ]
+
+" }}}
+" {{{ multiple vim-multiple-cursors
+
+" Called once right before you start selecting multiple cursors
+function! Multiple_cursors_before()
+  "exe 'YRToggle 0'
+  if has('nvim')
+    call deoplete#disable()
+  else
+    "exe 'NeoCompleteDisable'
+  endif
+endfunction
+
+" Called once only when the multiple selection is canceled (default <Esc>)
+function! Multiple_cursors_after()
+  "exe 'YRToggle 1'
+  if has('nvim')
+    call deoplete#enable()
+  else
+    "exe 'NeoCompleteEnable'
+  endif
+endfunction
+
+" }}}
+" {{{ tagbar
+
+nmap <F8> :TagbarToggle<CR>
+
+" }}}
+" {{{ vim-airline
+" https://github.com/vim-airline/vim-airline/wiki/Screenshots
+
+let g:airline_highlighting_cache=1
+"let g:airline_theme='luna'
+let g:airline_theme = 'wombat'
+"let g:airline_theme = 'dark'
+"let g:airline_theme = 'murmur'
+"let g:airline_theme='one'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#bufferline#enabled = 0
+let g:airline#extensions#tmuxline#enabled = 0 "so it doens't overwrite tmux settings
+
+
+" }}}
+" {{{ RainbowParethesis
+
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
 
 " }}}

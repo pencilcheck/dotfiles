@@ -37,6 +37,10 @@ let g:signify_vcs_list = [ 'git' ]
 " }}}
 " GitGutter {{{
 
+if &shell ==# "/usr/local/bin/fish"
+  set shell=/bin/sh " so it will force fish shell to work with the plugin
+endif
+
 " Jump between git diff hunk
 "nmap <silent> ]h :<C-U>execute "GitGutterNextHunk"<CR>
 "nmap <silent> [h :<C-U>execute "GitGutterPrevHunk"<CR>

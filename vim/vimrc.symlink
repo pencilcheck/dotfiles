@@ -1,5 +1,8 @@
 " Author: Penn Su (pennsu@gmail.com)
 
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
+
 source $HOME/.dotfiles/vim/config/init.vimrc
 source $HOME/.dotfiles/vim/config/settings.vimrc
 source $HOME/.dotfiles/vim/config/bindings.vimrc

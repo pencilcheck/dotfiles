@@ -1,1 +1,1 @@
-/Users/penn/.vimrc
+../vimrc.symlink

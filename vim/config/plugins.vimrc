@@ -306,6 +306,16 @@ noremap <F3> :Fixmyjs<CR>
 
 noremap <C-p> :Files<CR>
 " }}}
+" {{{ CtrlF
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+" }}}
 " {{{ Far.vim
 
 "if has('nvim')

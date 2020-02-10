@@ -11,6 +11,7 @@ Plug 'terryma/vim-multiple-cursors' " true Sublime Text style multiple selection
 Plug 'vim-scripts/nextval' " inc-/decrement the current value (bool, int, numeric, hex) with one keystroke
 Plug 'tommcdo/vim-exchange' " easy text exchange operator for Vim.
 Plug 'junegunn/vim-easy-align' " a Vim alignment plugin
+Plug 'idbrii/vim-focusclip' " a proper integration for clipboard
 
 " Search
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " dark powered asynchronous completion framework for neovim/Vim8

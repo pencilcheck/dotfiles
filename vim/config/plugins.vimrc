@@ -371,7 +371,7 @@ let g:startify_bookmarks = [ {'x': '~/.vimrc'}, {'z': '~/.zshrc'} ]
 let g:startify_commands = [ {'m': 'edit .'} ]
 
 " }}}
-" {{{ multiple vim-multiple-cursors
+" {{{ vim-multiple-cursors
 
 " Called once right before you start selecting multiple cursors
 function! Multiple_cursors_before()
@@ -392,6 +392,8 @@ function! Multiple_cursors_after()
     "exe 'NeoCompleteEnable'
   endif
 endfunction
+
+set t_BE=
 
 " }}}
 " {{{ tagbar

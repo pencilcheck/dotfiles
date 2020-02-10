@@ -1,96 +1,83 @@
 call plug#begin('~/.vim/bundle')
 
-"Required
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-dispatch'
-Plug 'scrooloose/nerdcommenter'
-Plug 'mhinz/vim-startify'
-Plug 'wesQ3/vim-windowswap'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'ryanoasis/vim-devicons'
-Plug 'brooth/far.vim'
-Plug 'junegunn/fzf'
-Plug 'ap/vim-css-color'
-Plug 'rking/ag.vim'
-Plug 'vim-scripts/nextval'
-Plug 'haya14busa/incsearch.vim'
-Plug 'gorkunov/smartpairs.vim'
-Plug 'edkolev/tmuxline.vim'
-Plug 'edkolev/promptline.vim'
-Plug 'jszakmeister/vim-togglecursor'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'Shougo/neocomplete.vim', { 'do': ':NeoCompleteEnable' }
-Plug 'ruanyl/vim-fixmyjs'
-Plug 'lukaszb/vim-web-indent'
-Plug 'junegunn/vim-easy-align'
-Plug 'mhinz/vim-hugefile'
-"Plug 'mhinz/vim-signify'
-Plug 'airblade/vim-gitgutter' " can <leader>hs to stage hunks
+" Editing
+Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
+Plug 'tpope/vim-repeat' " enable repeating supported plugin
+Plug 'tpope/vim-abolish' " easily search for, substitute, and abbreviate multiple variants of a word
+Plug 'tpope/vim-unimpaired' " pairs of handy bracket mappings
+Plug 'scrooloose/nerdcommenter' " vim plugin for intensely nerdy commenting powers
+Plug 'gorkunov/smartpairs.vim' " enchanted visual (selection) mode for Vim (vvvvvv to select)
+Plug 'terryma/vim-multiple-cursors' " true Sublime Text style multiple selections for Vim
+Plug 'vim-scripts/nextval' " inc-/decrement the current value (bool, int, numeric, hex) with one keystroke
+Plug 'tommcdo/vim-exchange' " easy text exchange operator for Vim.
+Plug 'junegunn/vim-easy-align' " a Vim alignment plugin
 
-"Find out what is making vim slow and laggy
-"Plug 'majutsushi/tagbar'
-"Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-easytags'
-"Plug 'Xuyuanp/nerdtree-git-plugin' " it kinda slow down the scrolling when nerdtree is opened with this plugin
-Plug 'metakirby5/codi.vim'
-Plug 'rstacruz/vim-hyperstyle'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'vim-airline/vim-airline' " found another culprit, it is slowing down stuff quite alot, new commit seems to make it faster but not sure
-Plug 'vim-airline/vim-airline-themes'
-"Plug 'yssl/QFEnter'
-"Plug 'vim-scripts/BufOnly.vim'
-"Plug 'mattn/gist-vim'
-"Plug 'thoughtbot/vim-rspec'
-"Plug 'xolox/vim-reload'
-"Plug 'Lokaltog/vim-easymotion'
-"Plug 'sjl/gundo.vim'
-"Plug 'techlivezheng/vim-plugin-minibufexpl'
-"Plug 'osyo-manga/vim-over'
-"Plug 'vim-scripts/cecutil'
-"Plug 'vim-scripts/vis'
-"Plug 'atweiden/vim-dragvisuals'
-"Plug 'scrooloose/syntastic'
-"Plug 'caigithub/a_pair'
-"Plug 'kana/vim-textobj-user'
-"Plug 'nelstrom/vim-textobj-rubyblock' " depends on kana/vim-textobj-user
-"Plug 'vim-ruby/vim-ruby'
-"Plug 'AndrewRadev/splitjoin.vim'
-"Plug 'AndrewRadev/switch.vim'
-"Plug 'idbrii/itchy.vim'
-"Plug 'idbrii/vim-ripple'
+" Search
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " dark powered asynchronous completion framework for neovim/Vim8
+Plug 'dyng/ctrlsf.vim' " an ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/defx.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'haya14busa/incsearch.vim' " improved incremental searching for Vim
+Plug 'brooth/far.vim' " find and replace Vim plugin
+
+" Git
+Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
+Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
+Plug 'airblade/vim-gitgutter' " a Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks and partial hunks. can <leader>hs to stage hunks
+
+" IDE functionality
+Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
 
 " Language syntax highlights
-Plug 'digitaltoad/vim-jade'
-Plug 'sheerun/vim-polyglot'
-"Plug 'elixir-editors/vim-elixir'
+Plug 'sheerun/vim-polyglot' " a solid language pack for Vim.
 "Plug 'jaxbot/semantic-highlight.vim'
 
-" vim-polyglot covers
-"Plug 'jelera/vim-javascript-syntax'
-"Plug 'jparise/vim-graphql'
-"Plug 'elzr/vim-json'
-"Plug 'mtscout6/vim-cjsx'
-"Plug 'lambdatoast/elm.vim'
-"Plug 'tpope/vim-haml'
-"Plug 'kchmck/vim-coffee-script'
-"Plug 'slim-template/vim-slim'
-"Plug 'puppetlabs/puppet-syntax-vim'
-"Plug 'tpope/vim-markdown'
-"Plug 'wavded/vim-stylus'
-"Plug 'kylef/apiblueprint.vim'
-"Plug 'gkz/vim-ls'
-"Plug 'hail2u/vim-css3-syntax'
+" File navigation
+Plug 'tpope/vim-vinegar' " combine with netrw to create a delicious salad dressing
+Plug 'mhinz/vim-startify' " the fancy start screen for Vim
+Plug 'scrooloose/nerdtree' " a tree explorer plugin for vim.
+Plug 'jistr/vim-nerdtree-tabs' " NERDTree and tabs together in Vim, painlessly
+
+" Layout
+Plug 'wesQ3/vim-windowswap' " swap your windows without ruining your layout
+
+" IntelliJ
+Plug 'beeender/Comrade'
+
+" Tmux
+Plug 'christoomey/vim-tmux-navigator' " seamless navigation between tmux panes and vim splits
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
+" CSS
+Plug 'rstacruz/vim-hyperstyle' " write CSS faster. Type faster by shorthand that will auto-expand as you type
+
+" Ruby
+Plug 'tpope/vim-endwise' " add 'end' in ruby, endfunction/endif/more in vim script, etc
+
+" Javascript/Typescript
+Plug 'ruanyl/vim-fixmyjs' " vim fixmyjs - auto fix your javascript using fixmyjs/eslint/tslint/jscs
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+" Eye candy
+Plug 'ryanoasis/vim-devicons'
+Plug 'lilydjwg/colorizer' " a Vim plugin to colorize all text in the form #rrggbb or #rgb.
+Plug 'ap/vim-css-color' " preview colours in source code while editing
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'edkolev/tmuxline.vim'
+Plug 'edkolev/promptline.vim'
+Plug 'jszakmeister/vim-togglecursor' " toggle the cursor shape in the terminal for Vim.
 
 " Colorschemes
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'morhetz/gruvbox'
 Plug 'jsit/disco.vim'
 Plug 'rakr/vim-one'
@@ -101,21 +88,17 @@ Plug 'vim-scripts/Gentooish'
 Plug 'stulzer/heroku-colorscheme'
 Plug 'chankaward/vim-railscasts-theme'
 Plug 'junegunn/seoul256.vim'
-Plug 'dracula/vim'
 Plug 'michalbachowski/vim-wombat256mod'
 Plug 'tomasr/molokai'
 Plug 'davidkariuki/sexy-railscasts-256-theme'
 Plug 'endel/vim-github-colorscheme'
 
-" clojure
+" Clojure
 "Plug 'guns/vim-clojure-static'
 "Plug 'kien/rainbow_parentheses.vim'
 "Plug 'tpope/vim-fireplace'
 
-
 " Other plugins
-Plug 'roxma/vim-tmux-clipboard'
-Plug 'tmux-plugins/vim-tmux-focus-events'
 "Plug 'majutsushi/tagbar'
 "Plug 'tpope/vim-rake'
 "Plug 'tpope/vim-rails'
@@ -140,6 +123,48 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 "Plug 'yonchu/accelerated-smooth-scroll'
 "Plug 'joshdick/onedark.vim'
 "Plug 'pangloss/vim-javascript'
+"Plug 'jelera/vim-javascript-syntax'
+"Plug 'jparise/vim-graphql'
+"Plug 'elzr/vim-json'
+"Plug 'mtscout6/vim-cjsx'
+"Plug 'lambdatoast/elm.vim'
+"Plug 'tpope/vim-haml'
+"Plug 'kchmck/vim-coffee-script'
+"Plug 'slim-template/vim-slim'
+"Plug 'puppetlabs/puppet-syntax-vim'
+"Plug 'tpope/vim-markdown'
+"Plug 'wavded/vim-stylus'
+"Plug 'kylef/apiblueprint.vim'
+"Plug 'gkz/vim-ls'
+"Plug 'hail2u/vim-css3-syntax'
+"Plug 'majutsushi/tagbar'
+"Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-easytags'
+"Plug 'Xuyuanp/nerdtree-git-plugin' " it kinda slow down the scrolling when nerdtree is opened with this plugin
+"Plug 'yssl/QFEnter'
+"Plug 'vim-scripts/BufOnly.vim'
+"Plug 'mattn/gist-vim'
+"Plug 'thoughtbot/vim-rspec'
+"Plug 'xolox/vim-reload'
+"Plug 'Lokaltog/vim-easymotion'
+"Plug 'sjl/gundo.vim'
+"Plug 'techlivezheng/vim-plugin-minibufexpl'
+"Plug 'osyo-manga/vim-over'
+"Plug 'vim-scripts/cecutil'
+"Plug 'vim-scripts/vis'
+"Plug 'atweiden/vim-dragvisuals'
+"Plug 'scrooloose/syntastic'
+"Plug 'caigithub/a_pair'
+"Plug 'kana/vim-textobj-user'
+"Plug 'nelstrom/vim-textobj-rubyblock' " depends on kana/vim-textobj-user
+"Plug 'vim-ruby/vim-ruby'
+"Plug 'AndrewRadev/splitjoin.vim'
+"Plug 'AndrewRadev/switch.vim'
+"Plug 'idbrii/itchy.vim'
+"Plug 'idbrii/vim-ripple'
+"Plug 'mhinz/vim-hugefile'
+"Plug 'mhinz/vim-signify'
+"Plug 'metakirby5/codi.vim'
 
 " Blacklisted
 "Plug 'vim-scripts/YankRing.vim'

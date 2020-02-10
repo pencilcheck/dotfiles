@@ -34,10 +34,6 @@ let g:signify_update_on_focusgained = 0
 let g:signify_vcs_list = [ 'git' ]
 "let g:signify_cursorhold_normal = 1
 
-" Jump between git diff hunk
-nmap <silent> ]h ]c
-nmap <silent> [h [c
-
 " }}}
 " GitGutter {{{
 
@@ -45,11 +41,17 @@ nmap <silent> [h [c
 "nmap <silent> ]h :<C-U>execute "GitGutterNextHunk"<CR>
 "nmap <silent> [h :<C-U>execute "GitGutterPrevHunk"<CR>
 
+" Jump between git diff hunk
+nmap <silent> ]h ]c
+nmap <silent> [h [c
+
 " }}}
 " NERDTree {{{
 
 "nnoremap <leader>n :NERDTreeToggle<cr>
 let NERDTreeHijackNetrw=0
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 " }}}
 " NERDTree tabs {{{
@@ -299,8 +301,10 @@ noremap <F3> :Fixmyjs<CR>
 
 " }}}
 " {{{ fzf
-set rtp+=/usr/local/opt/fzf
-noremap <C-p> :FZF<CR>
+" Set ENV to use rg instead (should be faster and better)
+" export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!{.git,.svn,node_modules,bower_components}"'
+
+noremap <C-p> :Files<CR>
 " }}}
 " {{{ Far.vim
 

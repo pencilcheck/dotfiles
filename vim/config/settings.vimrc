@@ -1,5 +1,8 @@
 
 " Settings
+" {{{ Encoding
+set encoding=UTF-8
+" }}}
 " {{{ Ungrouped settings
 
 set nocompatible
@@ -53,7 +56,8 @@ set regexpengine=1
 " http://tilvim.com/2013/05/29/comment-prefix.html
 set formatoptions-=or
 
-" MacVim copy with native motion verbs
+" http://vim.wikia.com/wiki/Accessing_the_system_clipboard
+"set clipboard=unnamedplus
 set clipboard=unnamed
 
 "nnoremap / /\v
@@ -127,9 +131,9 @@ if &t_Co >= 256
   "colorscheme inkpot
   "colorscheme gentooish
   "colorscheme heroku-terminal
-  colorscheme seoul256
+  "colorscheme seoul256
   "colorscheme seoul256-light
-  "colorscheme dracula
+  colorscheme dracula
   "colorscheme wombat
   "colorscheme wombat256mod
   "colorscheme molokai
@@ -143,7 +147,7 @@ endif
 if has("gui_running")
   "colorscheme zenburn
   "colorscheme seoul256
-  "colorscheme seoul256-light
+  colorscheme seoul256-light
   "colorscheme dracula
   "colorscheme heroku
   "colorscheme github
@@ -162,7 +166,7 @@ if has('gui_running')
   " powerline arrow aligned (for Terminal.app > 18pt), almost full powerline charset (missing ===), ligature is not showing up in Macvim
   " https://github.com/be5invis/Iosevka/issues/56
   "set guifont=Iosevka:h18
-  set guifont=IosevkaNerdFontC-Light:h16
+  "set guifont=IosevkaNerdFontC-Light:h16
 
   "set guifont=KnackNerdFontC-Regular:h18
 
@@ -170,7 +174,7 @@ if has('gui_running')
   "set guifont=Fantasque\ Sans\ Mono:h18 
 
   " powerline arrow not aligned, full powerline charset, full ligature support in Macvim
-  "set guifont=Fira\ Code\ Retina:h18
+  set guifont=Fira\ Code\ Retina:h14
 
   " powerline arrow aligned, partial powerline charset, partial ligature support in Macvim
   " (missing <= for instance)
@@ -212,7 +216,6 @@ set undofile
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 set noswapfile
-
 " }}}
 " {{{ Tab setup
 
@@ -286,7 +289,28 @@ augroup END
 " }}}
 " {{{ Clear syntax for a large file with a very long first line
 
-autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
+"autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
+
+augroup LargeFile
+        let g:large_file = 209715200 " 200MB
+
+        " Set options:
+        "   eventignore+=FileType (no syntax highlighting etc
+        "   assumes FileType always on)
+        "   noswapfile (save copy of file)
+        "   bufhidden=unload (save memory when other file is viewed)
+        "   buftype=nowrite (is read-only) - disable this for now as usually I want edit
+        "   undolevels=-1 (no undo possible)
+        au BufReadPre *
+                \ let f=expand("<afile>") |
+                \ if getfsize(f) > g:large_file |
+                        \ setlocal eventignore+=FileType |
+                        \ setlocal noswapfile bufhidden=unload undolevels=-1 |
+                        "\ setlocal buftype=nowrite |
+                \ else |
+                        \ setlocal eventignore-=FileType |
+                \ endif
+augroup END
 
 " }}}
 " Custom file syntax highlighting {{{

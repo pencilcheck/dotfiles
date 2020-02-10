@@ -57,8 +57,8 @@ set regexpengine=1
 set formatoptions-=or
 
 " http://vim.wikia.com/wiki/Accessing_the_system_clipboard
-"set clipboard=unnamedplus
-set clipboard=unnamed
+set clipboard=unnamedplus
+"set clipboard=unnamed
 
 "nnoremap / /\v
 "vnoremap / /\v

@@ -36,8 +36,10 @@ Plug 'airblade/vim-gitgutter' " a Vim plugin which shows a git diff in the gutte
 Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
 
 " Language syntax highlights
-Plug 'sheerun/vim-polyglot' " a solid language pack for Vim.
-"Plug 'jaxbot/semantic-highlight.vim'
+Plug 'leafgarland/typescript-vim' " for typescript
+Plug 'othree/javascript-libraries-syntax.vim' " for javascript
+Plug 'othree/yajs.vim'
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'vue', 'vue.html.javascript.css'] }
 
 " File navigation
 Plug 'tpope/vim-vinegar' " combine with netrw to create a delicious salad dressing
@@ -122,7 +124,6 @@ Plug 'endel/vim-github-colorscheme'
 "Plug 'xolox/vim-session'
 "Plug 'yonchu/accelerated-smooth-scroll'
 "Plug 'joshdick/onedark.vim'
-"Plug 'pangloss/vim-javascript'
 "Plug 'jelera/vim-javascript-syntax'
 "Plug 'jparise/vim-graphql'
 "Plug 'elzr/vim-json'
@@ -176,5 +177,7 @@ Plug 'endel/vim-github-colorscheme'
 "Plug 'ton/vim-bufsurf'
 "Plug 'Lokaltog/powerline'
 "Plug 'Valloric/YouCompleteMe'
+"Plug 'sheerun/vim-polyglot' " a solid language pack for Vim.
+"Plug 'jaxbot/semantic-highlight.vim'
 
 call plug#end()

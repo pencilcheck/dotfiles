@@ -41,7 +41,7 @@
   sdiff         = !TAG=$(git describe --no-abbrev --tags --match staging-*) && git diff $TAG
 
 [merge]
-  tool = opendiff
+	tool = opendiff
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 

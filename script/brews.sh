@@ -6,8 +6,9 @@
 # This script auto installs the list of brews that I use automatically on the local machine
 # Author: Penn Su (pennsu@gmail.com)
 
-RECIPES="brew-cask
+RECIPES="
 z
+exa
 sqlite
 the_silver_searcher
 tmux

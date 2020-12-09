@@ -14,6 +14,8 @@ Plug 'junegunn/vim-easy-align' " a Vim alignment plugin
 Plug 'idbrii/vim-focusclip' " a proper integration for clipboard
 
 " Search
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " dark powered asynchronous completion framework for neovim/Vim8
 Plug 'dyng/ctrlsf.vim' " an ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
 Plug '/usr/local/opt/fzf'

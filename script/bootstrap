@@ -28,7 +28,10 @@ fail () {
 
 setup_git_submodules () {
   git submodule init
-  git submodule update
+  git submodule update zsh/oh-my-zsh-symlink
+
+  # Makin this manual, as I don't want ssh to spread around like crazy
+  # git submodule update ssh
 }
 
 setup_vim () {
@@ -122,8 +125,9 @@ install_dotfiles () {
 }
 
 # to pass in script arguments into functions as well, e.g. $0, $1
+setup_git_submodules
 install_dotfiles "$@"
-setup_git_submodules || setup_vim
+setup_vim
 
 echo ''
 echo '  All installed!'

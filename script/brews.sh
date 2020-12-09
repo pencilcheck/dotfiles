@@ -133,7 +133,7 @@ fail () {
 }
 
 tap() {
-  brew tap hombrew/cask
+  brew tap homebrew/cask
   brew tap homebrew/cask-versions
 }
 

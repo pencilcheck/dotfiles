@@ -6,8 +6,9 @@
 # This script auto installs the list of brews that I use automatically on the local machine
 # Author: Penn Su (pennsu@gmail.com)
 
-RECIPES="brew-cask
+RECIPES="
 z
+exa
 sqlite
 the_silver_searcher
 tmux
@@ -133,10 +134,8 @@ fail () {
 }
 
 tap() {
-  brew tap phinze/homebrew-cask
-  brew tap caskroom/versions
-  brew tap homebrew/dupes
-  brew tap homebrew/versions
+  brew tap homebrew/cask
+  brew tap homebrew/cask-versions
 }
 
 has_brew() {
@@ -184,6 +183,8 @@ install_casks() {
 install_zsh() {
   info 'setup zsh'
   brew install zsh
+  # Setup Oh My Zsh
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   # Setup homebrew zsh
   sudo sh -c 'echo "/usr/local/bin/zsh" >> /etc/shells'
   chsh -s /usr/local/bin/zsh
@@ -194,4 +195,4 @@ check
 tap
 install_zsh
 install_recipes
-install_casks
+#install_casks

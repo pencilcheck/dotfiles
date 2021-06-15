@@ -3,7 +3,12 @@ let g:netrw_keepdir=1
 " }}}
 " Fugitive {{{
 
-nnoremap gst :Gstatus<CR>
+" basically opens a terminal and use it to run command (sometimes commit will
+" use hooks and mess up everything in nvim
+nnoremap gci :FloatermNew
+"nnoremap gst :FloatermNew nvim -c ":Git" +only
+nnoremap gst :FloatermNew nvim % -c ":Git" +only
+"nnoremap gst :Git<CR>
 nnoremap gdf :Gdiff<CR>
 nnoremap gbl :Gblame<CR>
 nnoremap gco :Gread<CR>
@@ -60,7 +65,296 @@ let NERDTreeDirArrows = 1
 " }}}
 " NERDTree tabs {{{
 
-nnoremap <leader>n :NERDTreeMirrorToggle<cr>
+"nnoremap <leader>n :NERDTreeMirrorToggle<cr>
+
+" }}}
+" Nvim tree {{{
+
+nnoremap <leader>n :NvimTreeToggle<CR>
+nnoremap <leader>m :NvimTreeFindFile<CR>
+
+let g:nvim_tree_width = 40 "30 by default
+let g:nvim_tree_gitignore = 0 "0 by default
+let g:nvim_tree_auto_open = 1 "0 by default, opens the tree when typing `vim $DIR` or `vim`
+let g:nvim_tree_auto_ignore_ft = [ 'startify', 'dashboard' ] "empty by default, don't auto open tree on specific filetypes.
+let g:nvim_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
+let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
+let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
+let g:nvim_tree_tab_open = 1 "0 by default, will open the tree when entering a new tab and the tree was previously open
+let g:nvim_tree_disable_netrw = 0 "1 by default, disables netrw
+let g:nvim_tree_hijack_netrw = 0 "1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
+let g:nvim_tree_group_empty = 1 " 0 by default, compact folders that only contain a single folder into one node in the file tree
+let g:nvim_tree_special_files = [ 'README.md', 'Makefile', 'MAKEFILE' ] " List of filenames that gets highlighted with NvimTreeSpecialFile
+
+
+"Default actions
+
+"move around like in any vim buffer
+"<CR> or o on .. will cd in the above directory
+"<C-]> will cd in the directory under the cursor
+"<BS> will close current opened directory or parent
+"type a to add a file. Adding a directory requires leaving a leading / at the end of the path.
+"you can add multiple directories by doing foo/bar/baz/f and it will add foo bar and baz directories and f as a file
+"type r to rename a file
+"type <C-r> to rename a file and omit the filename on input
+"type x to add/remove file/directory to cut clipboard
+"type c to add/remove file/directory to copy clipboard
+"type p to paste from clipboard. Cut clipboard has precedence over copy (will prompt for confirmation)
+"type d to delete a file (will prompt for confirmation)
+"type ]c to go to next git item
+"type [c to go to prev git item
+"type - to navigate up to the parent directory of the current file/directory
+"if the file is a directory, <CR> will open the directory otherwise it will open the file in the buffer near the tree
+"if the file is a symlink, <CR> will follow the symlink (if the target is a file)
+"<C-v> will open the file in a vertical split
+"<C-x> will open the file in a horizontal split
+"<C-t> will open the file in a new tab
+"<Tab> will open the file as a preview (keeps the cursor in the tree)
+"I will toggle visibility of folders hidden via |g:nvim_tree_ignore|
+"H will toggle visibility of dotfiles (files/folders starting with a .)
+"R will refresh the tree
+"Double left click acts like <CR>
+"Double right click acts like <C-]>
+
+
+
+" }}}
+" Minimap {{{
+
+let g:minimap_width = 10
+let g:minimap_auto_start = 1
+let g:minimap_auto_start_win_enter = 1
+let g:minimap_git_colors = 1
+let g:minimap_highlight_range = 1
+
+" }}}
+" indentLine {{{
+
+let g:indentLine_enabled = 1
+let g:indent_blankline_char_highlight_list = ['Error', 'Function']
+let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
+let g:indent_blankline_show_trailing_blankline_indent = v:false
+let g:indent_blankline_filetype_exclude = [ 'fugitive', 'nerdtree', 'tagbar', 'help', 'startify', 'netrw', 'vim-plug' ]
+let g:indent_blankline_buftype_exclude = [ 'nofile', 'nowrite', 'quickfix', 'terminal', 'prompt' ]
+
+" }}}
+" Barbar {{{
+
+let s:patterns = {}
+
+" 6 hex-numbers, optionnal #-prefix
+let s:patterns['hex']      = '\v#?(\x{2})(\x{2})(\x{2})'
+
+" short version is strict: starting # mandatory
+let s:patterns['shortHex'] = '\v#(\x{1})(\x{1})(\x{1})'
+
+function! s:interpolate (start, end, amount)
+    let diff = a:end - a:start
+    return a:start + (diff * a:amount)
+endfunc
+
+" @params (r, g, b)
+" @params ([r, g, b])
+" @returns String           A RGB color
+fu! s:pluginsRGBtoHex (...)
+    let [r, g, b] = ( a:0==1 ? a:1 : a:000 )
+    let num = printf('%02x', float2nr(r)) . ''
+          \ . printf('%02x', float2nr(g)) . ''
+          \ . printf('%02x', float2nr(b)) . ''
+    return '#' . num
+endfu
+
+" @param {String|Number} color   The color to parse
+fu! s:pluginsHexToRGB (color)
+    if type(a:color) == 2
+        let color = printf('%x', a:color)
+    else
+        let color = a:color | end
+
+    let matches = matchlist(color, s:patterns['hex'])
+    let factor  = 0x1
+
+    if empty(matches)
+        let matches = matchlist(color, s:patterns['shortHex'])
+        let factor  = 0x10
+    end
+
+    if len(matches) < 4
+        throw 'Couldnt parse ' . string(color) . ' ' .  string(matches)
+    end
+
+    let r = str2nr(matches[1], 16) * factor
+    let g = str2nr(matches[2], 16) * factor
+    let b = str2nr(matches[3], 16) * factor
+
+    return [r, g, b]
+endfu
+
+" @params String                 color      The color
+" @params {Number|String|Float} [amount=5]  The percentage of light
+fu! s:pluginsLighten(color, ...)
+    let amount = a:0 ?
+                \(type(a:1) < 2 ?
+                    \str2float(a:1) : a:1 )
+                \: 5.0
+
+    if(amount < 1.0)
+        let amount = 1.0 + amount
+    else
+        let amount = 1.0 + (amount / 100.0)
+    end
+
+    let rgb = s:pluginsHexToRGB(a:color)
+    let rgb = map(rgb, 'v:val * amount')
+    let rgb = map(rgb, 'v:val > 255.0 ? 255.0 : v:val')
+    let rgb = map(rgb, 'float2nr(v:val)')
+    let hex = s:pluginsRGBtoHex(rgb)
+    return hex
+endfu
+
+function! s:pluginsMix (a, b, ...)
+    let amount = a:0 ? a:1 : 0.5
+
+    let ca = s:pluginsHexToRGB(a:a)
+    let cb = s:pluginsHexToRGB(a:b)
+
+    let r = s:interpolate(ca[0], cb[0], amount)
+    let g = s:interpolate(ca[1], cb[1], amount)
+    let b = s:interpolate(ca[2], cb[2], amount)
+
+    return s:pluginsRGBtoHex([r, g, b])
+endfunc
+
+function! s:_ (name, ...)
+  let fg = ''
+  let bg = ''
+  let attr = ''
+
+  if type(a:1) == 3
+    let fg   = get(a:1, 0, '')
+    let bg   = get(a:1, 1, '')
+    let attr = get(a:1, 2, '')
+  else
+    let fg   = get(a:000, 0, '')
+    let bg   = get(a:000, 1, '')
+    let attr = get(a:000, 2, '')
+  end
+
+  let has_props = v:false
+
+  let cmd = 'hi! ' . a:name
+  if !empty(fg) && fg != 'none'
+    let cmd .= ' guifg=' . fg
+    let has_props = v:true
+  end
+  if !empty(bg) && bg != 'none'
+    let cmd .= ' guibg=' . bg
+    let has_props = v:true
+  end
+  if !empty(attr) && attr != 'none'
+    let cmd .= ' gui=' . attr
+    let has_props = v:true
+  end
+  execute 'hi! clear ' a:name
+  if has_props
+    execute cmd
+  end
+endfunc
+
+let s:base0      = '#1B2229'
+let s:base1      = '#1c1f24'
+let s:base2      = '#202328'
+let s:base3      = '#23272e'
+let s:base4      = '#3f444a'
+let s:base5      = '#5B6268'
+let s:base6      = '#73797e'
+let s:base7      = '#9ca0a4'
+let s:base8      = '#b1b1b1'
+let s:base9      = '#E6E6E6'
+
+let s:grey       = s:base4
+let s:red        = '#ff6c6b'
+let s:orange     = '#da8548'
+let s:green      = '#98be65'
+let s:teal       = '#4db5bd'
+let s:yellow     = '#ECBE7B'
+let s:blue       = '#51afef'
+let s:dark_blue  = '#2257A0'
+let s:magenta    = '#c678dd'
+let s:violet     = '#a9a1e1'
+let s:cyan       = '#46D9FF'
+let s:dark_cyan  = '#5699AF'
+let s:white      = '#efefef'
+
+let s:green_alt  = '#799033'
+
+let s:bg             = '#282c34'
+let s:bg_alt         = '#21242b'
+let s:bg_highlight   = '#2E323C'
+let s:bg_popup       = '#3E4556'
+let s:bg_widget      = s:bg
+let s:bg_statusline  = s:bg_popup
+let s:bg_visual      = s:pluginsLighten(s:base4, 0.3)
+let s:bg_selection   = s:dark_blue
+let s:bg_highlighted = '#4A4A45'
+
+let s:fg           = '#bbc2cf'
+let s:fg_alt       = '#5B6268'
+let s:fg_widget    = s:fg
+let s:fg_conceal   = s:base4
+let s:fg_subtle    = s:base7
+let s:fg_highlight = s:pluginsLighten(s:fg, 0.2)
+let s:fg_linenr    = s:base4
+
+
+let s:highlight       = s:blue
+let s:highlight_color = s:base0
+
+let s:tag    = s:pluginsMix(s:blue, s:cyan)
+
+let s:diff_info_fg  = s:blue
+let s:diff_info_bg0 = s:pluginsMix('#D8EEFD', s:bg, 0.6)
+let s:diff_info_bg1 = s:pluginsMix('#D8EEFD', s:bg, 0.8)
+
+let s:diff_add_fg  = s:green
+let s:diff_add_fg0 = s:pluginsMix(s:green,   s:fg, 0.4)
+let s:diff_add_bg0 = s:pluginsMix('#506d5b', s:bg, 0.4)
+let s:diff_add_bg1 = s:pluginsMix('#acf2bd', s:bg, 0.6)
+let s:diff_add_bg2 = s:pluginsMix('#acf2bd', s:bg, 0.8)
+
+let s:gh_danger_fg  = s:red
+let s:gh_danger_fg0 = s:pluginsMix(s:red,     s:fg, 0.6)
+let s:gh_danger_bg0 = s:pluginsMix('#ffdce0', s:bg, 0.6)
+let s:gh_danger_bg1 = s:pluginsMix('#ffdce0', s:bg, 0.8)
+let s:gh_danger_bg2 = s:pluginsMix('#ffdce0', s:bg, 0.9)
+
+let s:bg_current = s:bg
+let s:bg_visible = s:bg
+let s:bg_other   = s:base1
+
+call s:_('BufferCurrent',       s:base9,          s:bg_current,  'none')
+call s:_('BufferCurrentIndex',  s:base6,          s:bg_current,  'none')
+call s:_('BufferCurrentMod',    s:yellow,         s:bg_current,  'none')
+call s:_('BufferCurrentSign',   s:blue,           s:bg_current,  'none')
+call s:_('BufferCurrentTarget', s:red,            s:bg_current,  'bold')
+
+call s:_('BufferVisible',       s:base7,          s:bg_visible,  'none')
+call s:_('BufferVisibleIndex',  s:base9,          s:bg_visible,  'none')
+call s:_('BufferVisibleMod',    s:yellow,         s:bg_visible,  'none')
+call s:_('BufferVisibleSign',   s:base4,          s:bg_visible,  'none')
+call s:_('BufferVisibleTarget', s:red,            s:bg_visible,  'bold')
+
+call s:_('BufferInactive',       s:base6,          s:bg_other,    'none')
+call s:_('BufferInactiveIndex',  s:base6,          s:bg_other,    'none')
+call s:_('BufferInactiveMod',    s:yellow,         s:bg_other,    'none')
+call s:_('BufferInactiveSign',   s:base4,          s:bg_other,    'none')
+call s:_('BufferInactiveTarget', s:red,            s:bg_other,    'bold')
+
+nnoremap <silent>     <A-c> :BufferClose<CR>
+nnoremap <silent>     <A-s> :BufferPick<CR>
+" Sort automatically by...
+nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
+nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
 
 " }}}
 " Tagbar {{{

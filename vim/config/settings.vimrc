@@ -50,7 +50,8 @@ set pastetoggle=<F2>
 
 set mouse=a "for scrolling
 
-set regexpengine=1
+" This setting freeze vim when opening tsx
+" set regexpengine=1
 
 " stop auto comment
 " http://tilvim.com/2013/05/29/comment-prefix.html
@@ -134,7 +135,8 @@ if &t_Co >= 256
   "colorscheme heroku-terminal
   "colorscheme seoul256
   "colorscheme seoul256-light
-  colorscheme dracula
+  "colorscheme dracula
+  colorscheme tokyonight
   "colorscheme wombat
   "colorscheme wombat256mod
   "colorscheme molokai
@@ -148,7 +150,8 @@ endif
 if has("gui_running")
   "colorscheme zenburn
   "colorscheme seoul256
-  colorscheme seoul256-light
+  "colorscheme seoul256-light
+  colorscheme tokyonight
   "colorscheme dracula
   "colorscheme heroku
   "colorscheme github
@@ -163,36 +166,36 @@ if has('gui_running')
 endif
 
 " font configuration
-if has('gui_running')
-  " powerline arrow aligned (for Terminal.app > 18pt), almost full powerline charset (missing ===), ligature is not showing up in Macvim
-  " https://github.com/be5invis/Iosevka/issues/56
-  "set guifont=Iosevka:h18
-  "set guifont=IosevkaNerdFontC-Light:h16
+" powerline arrow aligned (for Terminal.app > 18pt), almost full powerline charset (missing ===), ligature is not showing up in Macvim
+" https://github.com/be5invis/Iosevka/issues/56
+"set guifont=Iosevka:h18
+"set guifont=IosevkaNerdFontC-Light:h16
 
-  "set guifont=KnackNerdFontC-Regular:h18
+"set guifont=KnackNerdFontC-Regular:h18
 
-  " powerline arrow aligned, full powerline charset, no ligature support in Macvim
-  "set guifont=Fantasque\ Sans\ Mono:h18 
+" powerline arrow aligned, full powerline charset, no ligature support in Macvim
+"set guifont=Fantasque\ Sans\ Mono:h18 
 
-  " powerline arrow not aligned, full powerline charset, full ligature support in Macvim
-  set guifont=Fira\ Code\ Retina:h14
+" powerline arrow not aligned, full powerline charset, full ligature support in Macvim
+"set guifont=Fira\ Code\ Retina:h14
 
-  " powerline arrow aligned, partial powerline charset, partial ligature support in Macvim
-  " (missing <= for instance)
-  "set guifont=Hasklig:h18
+set guifont=JetBrainsMono\ Nerd\ Font:h14
 
-  " powerline arrow almost aligned, full powerline charset, no ligature support in Macvim
-  "set guifont=Hack:h14
+" powerline arrow aligned, partial powerline charset, partial ligature support in Macvim
+" (missing <= for instance)
+"set guifont=Hasklig:h18
 
-  " powerline arrow not aligned, partial powerline charset, full ligature support in Macvim
-  "set guifont=Monoid\ Retina:h18
+" powerline arrow almost aligned, full powerline charset, no ligature support in Macvim
+"set guifont=Hack:h14
 
-  "set guifont=Droid\ Sans\ Mono\ for\ Powerline:h12
-  "set guifont=Menlo\ for\ Powerline:h12
-  "set guifont=Monaco\ for\ Powerline:h11
-  "set guifont=PragmataPro\ for\ Powerline:h18
-  "set guifont=Inconsolata\ for\ Powerline:h14
-endif
+" powerline arrow not aligned, partial powerline charset, full ligature support in Macvim
+"set guifont=Monoid\ Retina:h18
+
+"set guifont=Droid\ Sans\ Mono\ for\ Powerline:h12
+"set guifont=Menlo\ for\ Powerline:h12
+"set guifont=Monaco\ for\ Powerline:h11
+"set guifont=PragmataPro\ for\ Powerline:h18
+"set guifont=Inconsolata\ for\ Powerline:h14
 
 " }}}
 " {{{ Speed up visual mode

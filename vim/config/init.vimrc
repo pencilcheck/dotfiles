@@ -12,19 +12,14 @@ Plug 'vim-scripts/nextval' " inc-/decrement the current value (bool, int, numeri
 Plug 'tommcdo/vim-exchange' " easy text exchange operator for Vim.
 Plug 'junegunn/vim-easy-align' " a Vim alignment plugin
 Plug 'idbrii/vim-focusclip' " a proper integration for clipboard
+Plug 'andymass/vim-matchup' " matchit enhanced
 
 " Search
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " dark powered asynchronous completion framework for neovim/Vim8
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'dyng/ctrlsf.vim' " an ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
-Plug '/usr/local/opt/fzf'
+" Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-if has('nvim')
-  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/defx.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
 Plug 'haya14busa/incsearch.vim' " improved incremental searching for Vim
 Plug 'brooth/far.vim' " find and replace Vim plugin
 
@@ -32,27 +27,41 @@ Plug 'brooth/far.vim' " find and replace Vim plugin
 Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
 Plug 'airblade/vim-gitgutter' " a Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks and partial hunks. can <leader>hs to stage hunks
+Plug 'sindrets/diffview.nvim' " see all git diff in one window
 
 " IDE functionality
 Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
+Plug 'wfxr/minimap.vim'
+Plug 'folke/lsp-colors.nvim' " more like a patch, not end user
+Plug 'neovim/nvim-lspconfig' " lsp core functionality
+"Plug 'Yggdroot/indentLine' " add indent lines, obsolete
+Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' } " better version of indent lines
+Plug 'romgrk/barbar.nvim' " manage buffer like a boss with new keybindings
+Plug 'voldikss/vim-floaterm'
 
 " Language syntax highlights
-Plug 'leafgarland/typescript-vim' " for typescript
-Plug 'othree/javascript-libraries-syntax.vim' " for javascript
-Plug 'othree/yajs.vim'
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'vue', 'vue.html.javascript.css'] }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"Plug 'othree/javascript-libraries-syntax.vim' " for javascript
+"Plug 'othree/yajs.vim'
+"Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'vue', 'vue.html.javascript.css'] }
+"Plug 'herringtondarkholme/yats.vim'
+"Plug 'MaxMEllon/vim-jsx-pretty'
+"Plug 'peitalin/vim-jsx-typescript'
+Plug 'jparise/vim-graphql'
 
 " File navigation
 Plug 'tpope/vim-vinegar' " combine with netrw to create a delicious salad dressing
 Plug 'mhinz/vim-startify' " the fancy start screen for Vim
-Plug 'scrooloose/nerdtree' " a tree explorer plugin for vim.
-Plug 'jistr/vim-nerdtree-tabs' " NERDTree and tabs together in Vim, painlessly
+"Plug 'scrooloose/nerdtree' " a tree explorer plugin for vim.
+"Plug 'jistr/vim-nerdtree-tabs' " NERDTree and tabs together in Vim, painlessly
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 
 " Layout
 Plug 'wesQ3/vim-windowswap' " swap your windows without ruining your layout
 
 " IntelliJ
-Plug 'beeender/Comrade'
+"Plug 'beeender/Comrade'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator' " seamless navigation between tmux panes and vim splits
@@ -95,6 +104,7 @@ Plug 'michalbachowski/vim-wombat256mod'
 Plug 'tomasr/molokai'
 Plug 'davidkariuki/sexy-railscasts-256-theme'
 Plug 'endel/vim-github-colorscheme'
+Plug 'folke/tokyonight.nvim'
 
 " Clojure
 "Plug 'guns/vim-clojure-static'

@@ -40,7 +40,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git gitfast git-extras vi-mode vundle zsh-syntax-highlighting)
+plugins=(git gitfast git-extras vi-mode vundle)
 
 source $HOME/.oh-my-zsh/oh-my-zsh.sh
 
@@ -51,13 +51,6 @@ export PROJECTS=~/Projects
 
 # optionally set DEFAULT_USER in ~/.zshrc to your regular username to hide the “user” info when you’re logged in as yourself on your local machine.
 DEFAULT_USER=penn
-
-# use .localrc for SUPER SECRET CRAP that you don't
-# want in your public, versioned repo.
-if [[ -a ~/.localrc ]]
-then
-  source ~/.localrc
-fi
 
 # all of our zsh files
 typeset -U config_files
@@ -90,10 +83,25 @@ source $DOTFILES/zsh/shell_prompt.zsh
 
 unset config_files
 
+# load every ssh keys
+for file in ${~/.ssh}
+do
+  ssh-add -K $file
+done
+
+# use .localrc for SUPER SECRET CRAP that you don't
+# want in your public, versioned repo.
+# set last to avoid conflict
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi
+
 # EXTRA: This binds Ctrl-O to ranger-cd:
 bindkey -s '^o' 'ranger-cd^m'
 
 # Loads z from homebrew
+brew list z || brew install z
 . `brew --prefix`/etc/profile.d/z.sh
 
 # https://github.com/GoogleCloudPlatform/gcloud/issues/25
@@ -109,6 +117,3 @@ nvm use
 
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-export PATH=/Users/penn/.local/bin/luna-studio:$PATH
-ssh-add -K ~/.ssh/github_rsa

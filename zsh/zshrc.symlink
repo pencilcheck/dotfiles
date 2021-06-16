@@ -84,8 +84,9 @@ source $DOTFILES/zsh/shell_prompt.zsh
 unset config_files
 
 # load every ssh keys
+setopt extended_glob
 eval "$(ssh-agent -s)"
-for file in ${~/.ssh}
+for file in ~/.ssh/**/*_rsa~*_rsa.pub(N)
 do
   ssh-add -K $file
 done

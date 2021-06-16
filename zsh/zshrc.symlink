@@ -84,6 +84,7 @@ source $DOTFILES/zsh/shell_prompt.zsh
 unset config_files
 
 # load every ssh keys
+eval "$(ssh-agent -s)"
 for file in ${~/.ssh}
 do
   ssh-add -K $file
@@ -109,8 +110,10 @@ export CLOUDSDK_PYTHON=/usr/bin/python
 
 git config --global core.excludesfile ~/.gitignore_global
 
-export NVM_DIR="/Users/penn/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+brew list nvm || brew install nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completionz
 nvm use
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

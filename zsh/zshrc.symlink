@@ -109,9 +109,9 @@ export CLOUDSDK_PYTHON=/usr/bin/python
 
 git config --global core.excludesfile ~/.gitignore_global
 
-[ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
+export NVM_DIR="/Users/penn/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 nvm use
-#nvm alias default 0.12
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

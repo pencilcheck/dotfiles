@@ -73,17 +73,61 @@ let NERDTreeDirArrows = 1
 nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>m :NvimTreeFindFile<CR>
 
+lua << EOF
+  require'nvim-tree'.setup {
+    disable_netrw       = false,
+    hijack_netrw        = false,
+    open_on_setup       = true,
+    ignore_ft_on_setup  = {},
+    auto_close          = false,
+    open_on_tab         = true,
+    hijack_cursor       = false,
+    update_cwd          = false,
+    update_to_buf_dir   = {
+      enable = true,
+      auto_open = true,
+    },
+    diagnostics = {
+      enable = false,
+      icons = {
+        hint = "",
+        info = "",
+        warning = "",
+        error = "",
+      }
+    },
+    update_focused_file = {
+      enable      = true,
+      update_cwd  = true,
+      ignore_list = {}
+    },
+    system_open = {
+      cmd  = nil,
+      args = {}
+    },
+    filters = {
+      dotfiles = false,
+      custom = {}
+    },
+    view = {
+      width = 30,
+      height = 30,
+      hide_root_folder = false,
+      side = 'left',
+      auto_resize = false,
+      mappings = {
+        custom_only = false,
+        list = {}
+      }
+    }
+  }
+EOF
 let g:nvim_tree_width = 40 "30 by default
 let g:nvim_tree_gitignore = 0 "0 by default
-let g:nvim_tree_auto_open = 1 "0 by default, opens the tree when typing `vim $DIR` or `vim`
 let g:nvim_tree_auto_ignore_ft = [ 'startify', 'dashboard' ] "empty by default, don't auto open tree on specific filetypes.
-let g:nvim_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
 let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
 let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
-let g:nvim_tree_tab_open = 1 "0 by default, will open the tree when entering a new tab and the tree was previously open
-let g:nvim_tree_disable_netrw = 0 "1 by default, disables netrw
-let g:nvim_tree_hijack_netrw = 0 "1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
-let g:nvim_tree_group_empty = 1 " 0 by default, compact folders that only contain a single folder into one node in the file tree
+let g:nvim_tree_group_empty = 0 " 0 by default, compact folders that only contain a single folder into one node in the file tree
 let g:nvim_tree_special_files = [ 'README.md', 'Makefile', 'MAKEFILE' ] " List of filenames that gets highlighted with NvimTreeSpecialFile
 
 

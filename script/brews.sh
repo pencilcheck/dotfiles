@@ -17,6 +17,7 @@ postgresql
 git
 ctags-exuberant
 cscope
+rust
 android-sdk
 autoconf
 automake
@@ -37,6 +38,9 @@ gnu-tar
 tree
 wget
 ondir
+nvm
+lunchy
+yarn
 "
 
 CASKS="teamviewer
@@ -97,6 +101,7 @@ gimp
 google-app-engine-launcher
 cord
 boxer
+macvim
 "
 
 command_exists() {
@@ -105,7 +110,7 @@ command_exists() {
 
 install_brew() {
   # Install homebrew
-  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
 
 check() {

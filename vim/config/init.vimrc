@@ -27,11 +27,12 @@ Plug 'brooth/far.vim' " find and replace Vim plugin
 Plug 'tpope/vim-fugitive' " a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-rhubarb' " GitHub extension for fugitive.vim
 Plug 'airblade/vim-gitgutter' " a Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks and partial hunks. can <leader>hs to stage hunks
+Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim' " see all git diff in one window
 
 " IDE functionality
 Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
-Plug 'wfxr/minimap.vim'
+Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
 Plug 'folke/lsp-colors.nvim' " more like a patch, not end user
 Plug 'neovim/nvim-lspconfig' " lsp core functionality
 "Plug 'Yggdroot/indentLine' " add indent lines, obsolete
